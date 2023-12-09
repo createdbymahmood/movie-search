@@ -1,9 +1,11 @@
 'use client'
 
+import {MantineProvider} from '@mantine/core'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {ReactQueryStreamedHydration} from '@tanstack/react-query-next-experimental'
 import * as React from 'react'
 
+import {theme} from '@/lib/mantine/theme'
 import {queryClientConfig} from '@/lib/react-query'
 
 function useProvidersState() {
@@ -21,7 +23,7 @@ export const Providers: React.FC<ProvidersProps> = ({children}) => {
     return (
         <QueryClientProvider client={state.client}>
             <ReactQueryStreamedHydration>
-                {children}
+                <MantineProvider theme={theme}>{children}</MantineProvider>
             </ReactQueryStreamedHydration>
         </QueryClientProvider>
     )
