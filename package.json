@@ -10,7 +10,7 @@
         "orval": "orval --config scripts/orval.config.ts"
     },
     "dependencies": {
-        "@hookform/resolvers": "^3.3.2",
+        "@hookform/resolvers": "3.3.2",
         "@tanstack/query-core": "5.13.4",
         "@tanstack/react-query": "5.13.4",
         "@tanstack/react-query-next-experimental": "5.13.4",
@@ -19,8 +19,8 @@
         "next": "14.0.4",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-hook-form": "^7.48.2",
-        "yup": "^1.3.2"
+        "react-hook-form": "7.48.2",
+        "yup": "1.3.2"
     },
     "devDependencies": {
         "@fullstacksjs/eslint-config": "10.7.0",
