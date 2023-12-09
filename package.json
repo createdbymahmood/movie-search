@@ -11,6 +11,9 @@
     },
     "dependencies": {
         "@hookform/resolvers": "3.3.2",
+        "@mantine/core": "7.3.1",
+        "@mantine/hooks": "7.3.1",
+        "@mantine/modals": "7.3.1",
         "@tanstack/query-core": "5.13.4",
         "@tanstack/react-query": "5.13.4",
         "@tanstack/react-query-next-experimental": "5.13.4",
@@ -24,13 +27,16 @@
     },
     "devDependencies": {
         "@fullstacksjs/eslint-config": "10.7.0",
+        "@types/lodash": "4.14.202",
         "@types/node": "20.10.4",
         "@types/react": "18.2.43",
         "@types/react-dom": "18.2.17",
         "eslint": "8.55.0",
         "orval": "6.21.0",
+        "postcss": "8.4.32",
+        "postcss-preset-mantine": "1.11.1",
+        "postcss-simple-vars": "7.0.1",
         "prettier": "3.1.0",
-        "typescript": "5.0.2",
-        "@types/lodash": "4.14.202"
+        "typescript": "5.0.2"
     }
 }
