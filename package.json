@@ -10,16 +10,16 @@
     },
     "dependencies": {
         "next": "14.0.4",
-        "react": "^18",
-        "react-dom": "^18"
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
     },
     "devDependencies": {
-        "@fullstacksjs/eslint-config": "^10.7.0",
-        "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
-        "eslint": "^8.55.0",
-        "prettier": "^3.1.0",
+        "@fullstacksjs/eslint-config": "10.7.0",
+        "@types/node": "20.10.4",
+        "@types/react": "18.2.43",
+        "@types/react-dom": "18.2.17",
+        "eslint": "8.55.0",
+        "prettier": "3.1.0",
         "typescript": "5.0.2"
     }
 }
