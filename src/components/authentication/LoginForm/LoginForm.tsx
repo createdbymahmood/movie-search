@@ -5,6 +5,7 @@ import {useRouter} from 'next/navigation'
 import {signIn} from 'next-auth/react'
 import * as React from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
+import {StringParam, useQueryParam, withDefault} from 'use-query-params'
 
 import {loginFormValidationSchema} from '@/components/authentication/LoginForm/LoginFormValidationSchema'
 import type {NextAuthError} from '@/utils/error'
@@ -24,6 +25,11 @@ function useLoginFormState() {
     })
     const router = useRouter()
 
+    const [callbackUrl] = useQueryParam(
+        'callbackUrl',
+        withDefault(StringParam, '/'),
+    )
+
     const onSubmit: React.ComponentProps<
         typeof LoginFormView
     >['onSubmit'] = async (values) => {
@@ -40,7 +46,7 @@ function useLoginFormState() {
             return
         }
 
-        router.push('/')
+        router.push(callbackUrl)
     }
 
     return {form: {...form, onSubmit}, router}
