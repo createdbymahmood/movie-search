@@ -1,5 +1,6 @@
 'use client'
 
+import {Container} from '@mantine/core'
 import isUrl from 'is-url'
 import {useParams} from 'next/navigation'
 import * as React from 'react'
@@ -23,10 +24,11 @@ export const Movie: React.FC = () => {
     ) : null
 
     return (
-        <div>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+        <Container>
+            <pre style={{textOverflow: 'ellipsis'}}>
+                {JSON.stringify(state.movieByIdQuery.data, null, 2)}
+            </pre>
             {image}
-            <pre>{JSON.stringify(state.movieByIdQuery.data, null, 2)}</pre>
-        </div>
+        </Container>
     )
 }
