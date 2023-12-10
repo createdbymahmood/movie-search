@@ -10,17 +10,27 @@ import {
     Text,
     TextInput,
 } from '@mantine/core'
+import {useCallbackRef} from '@mantine/hooks'
 import isUrl from 'is-url'
-import {isEmpty, lt} from 'lodash'
+import {debounce, isEmpty, lt} from 'lodash'
 import * as React from 'react'
 
+import {MovieSearchSkeleton} from '@/components/movies/MovieSearchSkeleton'
+import {useSearchQueryParamState} from '@/components/movies/useSearchQueryParamState'
 import {toClientErrorMessage} from '@/utils/error'
 import {DEFAULT_MOVIE_POSTER} from '~~/configs/constants'
 
 import {useMovieSearchState} from './useMovieSearchState'
 
-export const MovieSearch: React.FC = () => {
-    const state = useMovieSearchState()
+export interface MovieSearchProps {
+    // eslint-disable-next-line react/no-unused-prop-types
+    searchQuery: string
+    // eslint-disable-next-line react/no-unused-prop-types
+    setSearchQuery: (sq: string) => void
+}
+
+export const MovieSearchContent: React.FC<MovieSearchProps> = (props) => {
+    const state = useMovieSearchState(props)
 
     const content = (() => {
         if (isEmpty(state.searchQuery)) return null
@@ -36,11 +46,7 @@ export const MovieSearch: React.FC = () => {
 
                         return (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                                alt={movie.Title}
-                                height={200}
-                                src={posterUrl}
-                            />
+                            <img alt={movie.Title} src={posterUrl} />
                         )
                     })()
 
@@ -73,6 +79,26 @@ export const MovieSearch: React.FC = () => {
     })()
 
     return (
+        <React.Fragment>
+            {content}
+            <Center mt='auto'>{pagination}</Center>
+        </React.Fragment>
+    )
+}
+
+export const MovieSearch = () => {
+    const [searchQuery, setSearchQuery] = useSearchQueryParamState<string>({
+        key: 'search',
+    })
+
+    const onSearchQueryChange = useCallbackRef(
+        debounce((event: React.ChangeEvent<HTMLInputElement>): void => {
+            const value = event.target.value
+            setSearchQuery(value)
+        }, 2000),
+    )
+
+    return (
         <Container>
             <Stack
                 display='flex'
@@ -81,13 +107,17 @@ export const MovieSearch: React.FC = () => {
                 style={{flexDirection: 'column'}}
             >
                 <TextInput
-                    defaultValue={state.searchQuery}
+                    defaultValue={searchQuery}
                     placeholder='The Wolf of Wall Street...'
-                    onChange={state.onSearchQueryChange}
+                    onChange={onSearchQueryChange}
                 />
 
-                {content}
-                <Center mt='auto'>{pagination}</Center>
+                <React.Suspense fallback={<MovieSearchSkeleton />}>
+                    <MovieSearchContent
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                    />
+                </React.Suspense>
             </Stack>
         </Container>
     )
