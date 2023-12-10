@@ -1,21 +1,18 @@
 'use client'
 
-import {useCallbackRef} from '@mantine/hooks'
-import {debounce, divide, floor, isEmpty, toNumber, toString} from 'lodash'
-import type * as React from 'react'
+import {divide, floor, toNumber, toString} from 'lodash'
 
+import type {MovieSearchProps} from '@/components/movies/MovieSearch'
 import {useSearchQueryParamState} from '@/components/movies/useSearchQueryParamState'
 import {useTitleSearch} from '@/lib/data-provider/OMDB/__generated'
 import type {TitleSearchResponse} from '@/lib/data-provider/OMDB/types'
 
-export function useMovieSearchState() {
+interface UseMovieSearchStateParams extends MovieSearchProps {}
+
+export function useMovieSearchState({searchQuery}: UseMovieSearchStateParams) {
     const [page, setPage] = useSearchQueryParamState<string>({
         key: 'page',
         defaultValue: '1',
-    })
-
-    const [searchQuery, setSearchQuery] = useSearchQueryParamState<string>({
-        key: 's',
     })
 
     const searchByTitleQuery = useTitleSearch<TitleSearchResponse>({
@@ -25,22 +22,18 @@ export function useMovieSearchState() {
 
     const perPage = 10
 
-    const onPageChange = (value: number) => setPage(toString(value))
+    const onPageChange = (value: number): void => setPage(toString(value))
 
-    const onSearchQueryChange = useCallbackRef(
-        debounce((event: React.ChangeEvent<HTMLInputElement>): void => {
-            const value = event.target.value
-            if (isEmpty(value)) return setSearchQuery('')
-            setSearchQuery(value)
-        }, 2000),
-    )
+    const totalPaginationPagesCount: number = (() => {
+        if (!toNumber(searchByTitleQuery.data?.totalResults)) return 0
 
-    const totalPaginationPagesCount = floor(
-        divide(toNumber(searchByTitleQuery.data?.totalResults), perPage),
-    )
+        return floor(
+            divide(toNumber(searchByTitleQuery.data?.totalResults), perPage),
+        )
+    })()
 
     const pagination = {
-        total: totalPaginationPagesCount || 0,
+        total: totalPaginationPagesCount,
         onPageChange,
         page: toNumber(page),
         perPage,
@@ -50,7 +43,6 @@ export function useMovieSearchState() {
     return {
         searchByTitleQuery,
         pagination,
-        onSearchQueryChange,
         error,
         searchQuery,
     }
