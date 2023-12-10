@@ -1,8 +1,9 @@
 'use client'
 
-import {Card, Center, Grid, Pagination, Text} from '@mantine/core'
+import {Card, Center, Grid, Loader, Pagination, Text} from '@mantine/core'
 import isUrl from 'is-url'
 import {isEmpty, lt} from 'lodash'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import * as React from 'react'
 
@@ -10,6 +11,10 @@ import {toClientErrorMessage} from '@/utils/error'
 import {DEFAULT_MOVIE_POSTER} from '~~/configs/constants'
 
 import {useMovieSearchState} from './useMovieSearchState'
+
+const Bookmark = dynamic(() => import('@/components/movies/Bookmark'), {
+    loading: () => <Loader size='sm' />,
+})
 
 export const MovieSearchContent: React.FC = () => {
     const state = useMovieSearchState()
@@ -43,6 +48,7 @@ export const MovieSearchContent: React.FC = () => {
                                     <Text>{movie.Title}</Text>
                                 </Card>
                             </Link>
+                            <Bookmark id={movie.imdbID} />
                         </Grid.Col>
                     )
                 })}
