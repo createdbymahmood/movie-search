@@ -4,7 +4,9 @@ import {MantineProvider} from '@mantine/core'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {ReactQueryStreamedHydration} from '@tanstack/react-query-next-experimental'
 import {SessionProvider} from 'next-auth/react'
+import NextAdapterApp from 'next-query-params/app'
 import * as React from 'react'
+import {QueryParamProvider} from 'use-query-params'
 
 import {theme} from '@/lib/mantine/theme'
 import {queryClientConfig} from '@/lib/react-query'
@@ -25,7 +27,11 @@ export const Providers: React.FC<ProvidersProps> = ({children}) => {
         <QueryClientProvider client={state.client}>
             <ReactQueryStreamedHydration>
                 <MantineProvider theme={theme}>
-                    <SessionProvider>{children}</SessionProvider>
+                    <SessionProvider>
+                        <QueryParamProvider adapter={NextAdapterApp}>
+                            {children}
+                        </QueryParamProvider>
+                    </SessionProvider>
                 </MantineProvider>
             </ReactQueryStreamedHydration>
         </QueryClientProvider>
