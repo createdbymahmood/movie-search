@@ -1,6 +1,6 @@
 'use client'
 
-import {Loader, MantineProvider} from '@mantine/core'
+import {MantineProvider} from '@mantine/core'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {ReactQueryStreamedHydration} from '@tanstack/react-query-next-experimental'
 import {SessionProvider} from 'next-auth/react'
@@ -25,9 +25,7 @@ export const Providers: React.FC<ProvidersProps> = ({children}) => {
         <QueryClientProvider client={state.client}>
             <ReactQueryStreamedHydration>
                 <MantineProvider theme={theme}>
-                    <React.Suspense fallback={<Loader />}>
-                        <SessionProvider>{children}</SessionProvider>
-                    </React.Suspense>
+                    <SessionProvider>{children}</SessionProvider>
                 </MantineProvider>
             </ReactQueryStreamedHydration>
         </QueryClientProvider>
