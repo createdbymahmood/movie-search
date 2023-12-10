@@ -1,6 +1,8 @@
 import type {AxiosError, AxiosRequestConfig} from 'axios'
 import Axios from 'axios'
 
+import {env} from '~~/configs/env'
+
 export const createAxiosInstance = (baseURL: string) => Axios.create({baseURL})
 
 export const createCustomInstance =
@@ -20,7 +22,9 @@ export const createCustomInstance =
         return promise
     }
 
-export const OMDBAxiosInstance = createCustomInstance('omdb-url')
-export const JsonPlaceholderInstance = createCustomInstance('jsonplaceholder')
+export const OMDBAxiosInstance = createCustomInstance(env.OMDBAPIURL)
+export const JsonPlaceholderInstance = createCustomInstance(
+    env.JsonPlaceholderAPIURL,
+)
 
 export interface ErrorType<Error> extends AxiosError<Error> {}
