@@ -1,18 +1,24 @@
 import type {AxiosError, AxiosRequestConfig} from 'axios'
 import Axios from 'axios'
+import {merge} from 'lodash'
 
 import {env} from '~~/configs/env'
 
 export const createAxiosInstance = (baseURL: string) => Axios.create({baseURL})
 
 export const createCustomInstance =
-    (baseURL: string) =>
+    (baseURL: string, extraRequestConfig: AxiosRequestConfig = {}) =>
     <T>(config: AxiosRequestConfig): Promise<T> => {
         const source = Axios.CancelToken.source()
-        const promise = createAxiosInstance(baseURL)({
-            ...config,
+
+        const requstConfig: AxiosRequestConfig = {
+            ...merge(config, extraRequestConfig),
             cancelToken: source.token,
-        }).then(({data}) => data)
+        }
+
+        const promise = createAxiosInstance(baseURL)(requstConfig).then(
+            ({data}) => data,
+        )
 
         // @ts-ignore unknown
         promise.cancel = () => {
@@ -22,7 +28,9 @@ export const createCustomInstance =
         return promise
     }
 
-export const OMDBAxiosInstance = createCustomInstance(env.OMDBAPIURL)
+export const OMDBAxiosInstance = createCustomInstance(env.OMDBAPIURL, {
+    params: {apiKey: env.OMDBAPIKey},
+})
 export const JsonPlaceholderInstance = createCustomInstance(
     env.JsonPlaceholderAPIURL,
 )
