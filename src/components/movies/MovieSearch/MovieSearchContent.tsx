@@ -3,6 +3,7 @@
 import {Card, Center, Grid, Pagination, Text} from '@mantine/core'
 import isUrl from 'is-url'
 import {isEmpty, lt} from 'lodash'
+import Link from 'next/link'
 import * as React from 'react'
 
 import {toClientErrorMessage} from '@/utils/error'
@@ -36,10 +37,12 @@ export const MovieSearchContent: React.FC = () => {
                             key={movie.imdbID}
                             span={{lg: 3, md: 4, sm: 6, xs: 12}}
                         >
-                            <Card>
-                                {image}
-                                <Text>{movie.Title}</Text>
-                            </Card>
+                            <Link href={`/details/${movie.imdbID}`}>
+                                <Card>
+                                    {image}
+                                    <Text>{movie.Title}</Text>
+                                </Card>
+                            </Link>
                         </Grid.Col>
                     )
                 })}

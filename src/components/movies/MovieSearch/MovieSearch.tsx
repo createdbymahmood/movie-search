@@ -6,11 +6,11 @@ import {debounce} from 'lodash'
 import * as React from 'react'
 
 import {MovieSearchContent} from '@/components/movies/MovieSearch/MovieSearchContent'
+import {MovieSearchSkeleton} from '@/components/movies/MovieSearch/MovieSearchSkeleton'
 import {
     DEFAULT_MOVIES_PAGE_NUMBER,
     useMovieQueryParamStates,
 } from '@/components/movies/MovieSearch/useMovieQueryParamStates'
-import {MovieSearchSkeleton} from '@/components/movies/MovieSearchSkeleton'
 
 export const MovieSearch = () => {
     const [queryParams, setQueryParams] = useMovieQueryParamStates()
