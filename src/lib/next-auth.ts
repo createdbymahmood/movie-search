@@ -58,9 +58,9 @@ export const nextAuthOptions: NextAuthOptions = {
     secret: env.NEXTAUTH_SECRET,
     providers: [CredentialsProvider(credentialsProviderConfig)],
     pages: {
-        signIn: `/login`,
-        verifyRequest: `/login`,
-        error: '/login', // Error code passed in query string as ?error=
+        signIn: '/auth/login',
+        verifyRequest: '/auth/login',
+        error: '/auth/login',
     },
     session: {strategy: 'jwt'},
 }
