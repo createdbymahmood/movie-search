@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 0.5.0 (2023-12-10)
+
+
+### Features
+
+* :fire: cleanup index page ([1eaefe3](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/1eaefe36daba8a79d48e04533ecc55228af31d47))
+* :heavy_plus_sign: add react hook form and yup ([8882b58](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/8882b58facf4c3e07bf03b38a6a86e544b9f47e6))
+* :lipstick: import and add bare minimum of mantine configs ([de8aeac](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/de8aeacf4594c37e8bf003e43d674ad8537c5fd7))
+* :pushpin: install exact version of yup, react-hook-form and @hookform/resolvers ([b3751ba](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/b3751ba0d2982d047dd8992b9338a3ffb6e151c4))
+* :sparkles: add bookmark feature ([e322df1](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/e322df13431b69782111b8f9722df8f709e300fd))
+* :sparkles: add constructMetadata to have better metadata content ([cd8e686](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/cd8e6860b60d155144adbfe0bef41dbb537b6f47))
+* :sparkles: add login page UI ([730919e](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/730919ef9d6fce1c362fbe19c36520f050179e30))
+* :sparkles: add signout button ([6ee0401](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/6ee0401e2fcdfa0471475616718db6273b63094c))
+* :sparkles: configure react query ([7b64bbb](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/7b64bbb01ec1a407aa46d8c46e508038825684bd))
+* :sparkles: implement `standard-version` ([1154a25](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/1154a25e277fa68d786f4abc2456317a8bbc6cda))
+* :sparkles: implement automatic code generators for react query ([00f7bc9](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/00f7bc9d8d7c5f2914bde79dca724305d53fdbe1))
+* :sparkles: implement bare minimum of movie search ([0c6c98d](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/0c6c98db12a22a7ae000a7bef810c4e22924cb1c))
+* :sparkles: implement movie info ([c775292](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/c77529241af6967cb5e95d919b2e746a993c3e52))
+* :sparkles: implement next-auth credentials as main authentication strategy ([0a54407](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/0a544077f1266c2e788d95df7d79c01dc9019fbd))
+* :sparkles: integrate login form ([b8c50cf](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/b8c50cfbbd31df2a75daf1a3329887903cac9f5d))
+* :sparkles: refactor MovieSearchContent a bit ([9d48929](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/9d489299951a036a191aa302626c2890005ce174))
+* :sparkles: use callbackUrl in login form ([973821c](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/973821cc968d0aab88cee7368585a27914ecddc7))
+* add a mocked user data to login page ([4c5e937](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/4c5e937398164762f169e11cba582edb45d88665))
+* prepare OMBD api to get used ([79a10f3](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/79a10f3837ce8274e7c31e61ff8490d0e1a9ffb2))
+
+
+### Bug Fixes
+
+* :bug: fix early router navigation call in login form ([d743621](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/d743621893b16934359e1a7ad320138d934692ba))
+* :lipstick: add padding to bottom of pagination ([e00d4d1](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/e00d4d14e17146e2bbfcef2539fb4c1604658aad))
+* :pencil2: fix a typo on movie route groups ([91449b6](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/91449b6e473203ceb6681f5393f4209dedf6011c))
+* move @types/lodash to devDependencies ([64021fd](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/64021fd3943b7a7feb9f088ae036048e43ffa4bf))
+
 ## 0.4.0 (2023-12-10)
 
 
