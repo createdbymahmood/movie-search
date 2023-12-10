@@ -33,6 +33,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({movie}) => {
             <Link href={`/details/${movie.imdbID}`}>
                 <Card>
                     {image}
+                    <Text>{movie.Year}</Text>
                     <Text>{movie.Title}</Text>
                 </Card>
             </Link>
