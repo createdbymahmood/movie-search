@@ -16,7 +16,10 @@ import {debounce, isEmpty, lt} from 'lodash'
 import * as React from 'react'
 
 import {MovieSearchSkeleton} from '@/components/movies/MovieSearchSkeleton'
-import {useSearchQueryParamState} from '@/components/movies/useSearchQueryParamState'
+import {
+    DEFAULT_MOVIES_PAGE_NUMBER,
+    useMovieQueryParamStates,
+} from '@/components/movies/useMovieQueryParamStates'
 import {toClientErrorMessage} from '@/utils/error'
 import {DEFAULT_MOVIE_POSTER} from '~~/configs/constants'
 
@@ -31,7 +34,6 @@ export interface MovieSearchProps {
 
 export const MovieSearchContent: React.FC<MovieSearchProps> = (props) => {
     const state = useMovieSearchState(props)
-
     const content = (() => {
         if (isEmpty(state.searchQuery)) return null
         if (state.error) return <Text>{toClientErrorMessage(state.error)}</Text>
@@ -87,15 +89,14 @@ export const MovieSearchContent: React.FC<MovieSearchProps> = (props) => {
 }
 
 export const MovieSearch = () => {
-    const [searchQuery, setSearchQuery] = useSearchQueryParamState<string>({
-        key: 'search',
-    })
+    const [searchQuery, page] = useMovieQueryParamStates()
 
     const onSearchQueryChange = useCallbackRef(
         debounce((event: React.ChangeEvent<HTMLInputElement>): void => {
             const value = event.target.value
-            setSearchQuery(value)
-        }, 2000),
+            page.set(DEFAULT_MOVIES_PAGE_NUMBER)
+            searchQuery.set(value)
+        }, 1000),
     )
 
     return (
@@ -107,15 +108,15 @@ export const MovieSearch = () => {
                 style={{flexDirection: 'column'}}
             >
                 <TextInput
-                    defaultValue={searchQuery}
+                    defaultValue={searchQuery.value}
                     placeholder='The Wolf of Wall Street...'
                     onChange={onSearchQueryChange}
                 />
 
                 <React.Suspense fallback={<MovieSearchSkeleton />}>
                     <MovieSearchContent
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
+                        searchQuery={searchQuery.value}
+                        setSearchQuery={searchQuery.set}
                     />
                 </React.Suspense>
             </Stack>
