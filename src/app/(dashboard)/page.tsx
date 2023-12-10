@@ -1,6 +1,7 @@
-import {Container, Text} from '@mantine/core'
 import * as React from 'react'
 
+import {MovieSearch} from '@/components/movies/MovieSearch'
+import {MovieSearchSkeleton} from '@/components/movies/MovieSearchSkeleton'
 import {constructMetadata} from '@/utils/constructMetadata'
 
 export const metadata = constructMetadata({
@@ -9,9 +10,9 @@ export const metadata = constructMetadata({
 
 const Page: React.FC = () => {
     return (
-        <Container py={25}>
-            <Text ta='center'>Hello World!</Text>
-        </Container>
+        <React.Suspense fallback={<MovieSearchSkeleton />}>
+            <MovieSearch />
+        </React.Suspense>
     )
 }
 
