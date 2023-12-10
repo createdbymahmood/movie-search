@@ -11,7 +11,6 @@ interface Props {
 }
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
-    // read route params
     const id = params.id
 
     const movie = (await getId({i: id})) as unknown as MovieDetails
