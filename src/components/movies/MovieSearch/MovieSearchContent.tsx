@@ -41,7 +41,9 @@ export const MovieSearchContent: React.FC = () => {
     return (
         <React.Fragment>
             {content}
-            <Center mt='auto'>{pagination}</Center>
+            <Center mt='auto' pb={20}>
+                {pagination}
+            </Center>
         </React.Fragment>
     )
 }
