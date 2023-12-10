@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import {MovieSearch} from '@/components/movies/MovieSearch'
-import {MovieSearchSkeleton} from '@/components/movies/MovieSearchSkeleton'
 import {constructMetadata} from '@/utils/constructMetadata'
 
 export const metadata = constructMetadata({
@@ -9,11 +8,7 @@ export const metadata = constructMetadata({
 })
 
 const Page: React.FC = () => {
-    return (
-        <React.Suspense fallback={<MovieSearchSkeleton />}>
-            <MovieSearch />
-        </React.Suspense>
-    )
+    return <MovieSearch />
 }
 
 export default Page
