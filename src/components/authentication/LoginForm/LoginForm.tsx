@@ -32,14 +32,15 @@ function useLoginFormState() {
             redirect: false,
         })
 
-        router.push('/')
-
         if (response?.error) {
             const message = transformNextAuthErrorToReadableMessages(
                 response.error as NextAuthError,
             )
             form.setError('email', {message})
+            return
         }
+
+        router.push('/')
     }
 
     return {form: {...form, onSubmit}, router}
