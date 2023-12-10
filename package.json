@@ -8,7 +8,10 @@
         "start": "next start",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "orval": "orval --config scripts/orval.config.ts",
-        "release": "standard-version"
+        "release": "standard-version",
+        "release:major": "yarn release --release-as minor",
+        "release:minor": "yarn release --release-as minor",
+        "release:patch": "yarn release --release-as minor"
     },
     "dependencies": {
         "@hookform/resolvers": "3.3.2",
