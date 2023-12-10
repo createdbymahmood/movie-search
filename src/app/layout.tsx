@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
     return (
         <html lang='en'>
             <body className={inter.className}>
-                <link href='/favicon.svg' rel='shortcut icon' />
+                <link href='/next.svg' rel='shortcut icon' />
                 <meta
                     content='minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no'
                     name='viewport'
