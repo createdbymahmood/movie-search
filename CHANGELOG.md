@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/compare/v0.5.0...v0.4.1) (2023-12-10)
+
+
+### Bug Fixes
+
+* :bug: fix relase commands ([ce9d3fa](https://github.com/createdbymahmood/divnotes-senior-frontend-developer-challenge/commit/ce9d3fadce57d450c89e62d262c96da4d2da2e88))
+
 ## 0.4.0 (2023-12-10)
 
 
