@@ -5,7 +5,7 @@ import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import * as React from 'react'
 
-import {Providers} from '@/components/Providers'
+import {Providers} from '@/components/general/Providers'
 
 const inter = Inter({subsets: ['latin']})
 
