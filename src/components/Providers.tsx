@@ -3,6 +3,7 @@
 import {Loader, MantineProvider} from '@mantine/core'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {ReactQueryStreamedHydration} from '@tanstack/react-query-next-experimental'
+import {SessionProvider} from 'next-auth/react'
 import * as React from 'react'
 
 import {theme} from '@/lib/mantine/theme'
@@ -25,7 +26,7 @@ export const Providers: React.FC<ProvidersProps> = ({children}) => {
             <ReactQueryStreamedHydration>
                 <MantineProvider theme={theme}>
                     <React.Suspense fallback={<Loader />}>
-                        {children}
+                        <SessionProvider>{children}</SessionProvider>
                     </React.Suspense>
                 </MantineProvider>
             </ReactQueryStreamedHydration>
