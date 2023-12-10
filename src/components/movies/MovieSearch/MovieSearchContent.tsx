@@ -1,20 +1,13 @@
 'use client'
 
-import {Card, Center, Grid, Loader, Pagination, Text} from '@mantine/core'
-import isUrl from 'is-url'
+import {Center, Grid, Pagination, Text} from '@mantine/core'
 import {isEmpty, lt} from 'lodash'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import * as React from 'react'
 
+import {MovieCard} from '@/components/movies/MovieSearch/MovieCard'
 import {toClientErrorMessage} from '@/utils/error'
-import {DEFAULT_MOVIE_POSTER} from '~~/configs/constants'
 
 import {useMovieSearchState} from './useMovieSearchState'
-
-const Bookmark = dynamic(() => import('@/components/movies/Bookmark'), {
-    loading: () => <Loader size='sm' />,
-})
 
 export const MovieSearchContent: React.FC = () => {
     const state = useMovieSearchState()
@@ -25,33 +18,9 @@ export const MovieSearchContent: React.FC = () => {
 
         return (
             <Grid>
-                {state.searchByTitleQuery.data?.Search.map((movie) => {
-                    const image: React.ReactNode = (() => {
-                        const posterUrl = isUrl(movie.Poster)
-                            ? movie.Poster
-                            : DEFAULT_MOVIE_POSTER
-
-                        return (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img alt={movie.Title} src={posterUrl} />
-                        )
-                    })()
-
-                    return (
-                        <Grid.Col
-                            key={movie.imdbID}
-                            span={{lg: 3, md: 4, sm: 6, xs: 12}}
-                        >
-                            <Link href={`/details/${movie.imdbID}`}>
-                                <Card>
-                                    {image}
-                                    <Text>{movie.Title}</Text>
-                                </Card>
-                            </Link>
-                            <Bookmark id={movie.imdbID} />
-                        </Grid.Col>
-                    )
-                })}
+                {state.searchByTitleQuery.data?.Search.map((movie) => (
+                    <MovieCard key={movie.imdbID} movie={movie} />
+                ))}
             </Grid>
         )
     })()
