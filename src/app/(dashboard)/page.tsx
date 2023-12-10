@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import {MovieSearch} from '@/components/movies/MovieSearch'
+import {MovieSearch} from '@/components/movies/MovieSearch/MovieSearch'
 import {constructMetadata} from '@/utils/constructMetadata'
 
 export const metadata = constructMetadata({
