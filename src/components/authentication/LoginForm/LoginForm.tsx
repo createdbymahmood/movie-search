@@ -9,6 +9,7 @@ import {FormProvider, useForm} from 'react-hook-form'
 import {loginFormValidationSchema} from '@/components/authentication/LoginForm/LoginFormValidationSchema'
 import type {NextAuthError} from '@/utils/error'
 import {transformNextAuthErrorToReadableMessages} from '@/utils/error'
+import MOCKED_USER from '~~/fixtures/user.json'
 
 import type * as LoginFormTypes from './LoginForm.types'
 import {LoginFormView} from './LoginFormView'
@@ -16,6 +17,10 @@ import {LoginFormView} from './LoginFormView'
 function useLoginFormState() {
     const form = useForm<LoginFormTypes.FormValues>({
         resolver: yupResolver(loginFormValidationSchema),
+        defaultValues: {
+            email: MOCKED_USER.email,
+            password: MOCKED_USER.password,
+        },
     })
     const router = useRouter()
 

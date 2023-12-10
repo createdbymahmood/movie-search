@@ -20,7 +20,8 @@
         ],
         "paths": {
             "@/*": ["./src/*"],
-            "~~/configs/*": ["./configs/*"]
+            "~~/configs/*": ["./configs/*"],
+            "~~/fixtures/*": ["./fixtures/*"]
         }
     },
     "include": [
