@@ -4,26 +4,33 @@ import {get} from 'lodash'
 import {useSession} from 'next-auth/react'
 import * as React from 'react'
 
-function useBookmarkState({id}: BookmarkProps) {
+export const useBookmarksInLocalStorage = () => {
     const session = useSession()
 
-    const [bookmarks, setBookmarks] = useLocalStorage({
+    const key = `bookmarks-key-${get(session, 'data.session.user.email')}`
+    console.log({key})
+    return useLocalStorage({
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        key: `bookmarks-key-${get(session, 'data.session.user.email')}`,
-        // key: 'random-key',
+        key,
         defaultValue: [] as string[],
     })
+}
 
+function useBookmarkState({id}: BookmarkProps) {
+    const session = useSession()
+    const [bookmarks, setBookmarks] = useBookmarksInLocalStorage()
     const movieId = id
 
     const toggleBookmark = () => {
-        setBookmarks((prevBookmarks) => {
+        const updater = (prevBookmarks: string[]) => {
             if (prevBookmarks.includes(movieId))
                 return prevBookmarks.filter(
                     (bookmarkId) => bookmarkId !== movieId,
                 )
             return [...prevBookmarks, movieId]
-        })
+        }
+
+        setBookmarks(updater)
     }
 
     const isBookmarked = bookmarks.includes(movieId)

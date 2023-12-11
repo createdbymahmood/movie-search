@@ -3,7 +3,8 @@
 import {Button, Container, Stack, TextInput} from '@mantine/core'
 import {useCallbackRef} from '@mantine/hooks'
 import {debounce} from 'lodash'
-import {usePathname, useRouter} from 'next/navigation'
+import Link from 'next/link'
+import {useRouter} from 'next/navigation'
 import {signOut} from 'next-auth/react'
 import * as React from 'react'
 
@@ -47,9 +48,12 @@ export const MovieSearch = () => {
                 py={50}
                 style={{flexDirection: 'column'}}
             >
-                <div>
+                <Stack style={{flexDirection: 'row'}}>
                     <Button onClick={state.handleSignOut}>Sign out</Button>
-                </div>
+                    <Button component={Link} href='/bookmarks'>
+                        Boookmarks
+                    </Button>
+                </Stack>
 
                 <Stack style={{flexDirection: 'row'}}>
                     <TextInput
