@@ -3,6 +3,7 @@
 import {Button, Container, Stack, TextInput} from '@mantine/core'
 import {useCallbackRef} from '@mantine/hooks'
 import {debounce} from 'lodash'
+import {usePathname, useRouter} from 'next/navigation'
 import {signOut} from 'next-auth/react'
 import * as React from 'react'
 
@@ -16,14 +17,24 @@ import {
 function useMovieSearchState() {
     const [queryParams, setQueryParams] = useMovieQueryParamStates()
 
+    const router = useRouter()
     const onSearchInputChange = useCallbackRef(
         debounce((event: React.ChangeEvent<HTMLInputElement>): void => {
             const value = event.target.value
             setQueryParams({search: value, page: DEFAULT_MOVIES_PAGE_NUMBER})
         }, 1000),
     )
+    const pathname = usePathname()
 
-    const handleSignOut = () => signOut({redirect: true})
+    const handleSignOut = () => {
+        try {
+            void signOut({redirect: false, callbackUrl: pathname})
+            router.push('/auth/login')
+        } catch (error) {
+            /* CATCH THE EXCEPTION */
+        }
+    }
+
     return {queryParams, onSearchInputChange, handleSignOut}
 }
 
