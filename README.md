@@ -1,4 +1,4 @@
-To run the project locally please replace .env.example content with the provided values as below
+To run the project locally please replace .env content with the provided values as below
 
 ```bash
 NEXT_PUBLIC_JsonPlaceholder_API_URL="https://jsonplaceholder.typicode.com"
