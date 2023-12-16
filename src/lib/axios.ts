@@ -8,7 +8,7 @@ export const createAxiosInstance = (baseURL: string) => Axios.create({baseURL})
 
 export const createCustomInstance =
     (baseURL: string, extraRequestConfig: AxiosRequestConfig = {}) =>
-    <T>(config: AxiosRequestConfig): Promise<T> => {
+    <T>(config: AxiosRequestConfig = {}): Promise<T> => {
         const source = Axios.CancelToken.source()
 
         const requstConfig: AxiosRequestConfig = {
@@ -31,8 +31,9 @@ export const createCustomInstance =
 export const OMDBAxiosInstance = createCustomInstance(env.OMDBAPIURL, {
     params: {apiKey: env.OMDBAPIKey},
 })
+
 export const JsonPlaceholderInstance = createCustomInstance(
     env.JsonPlaceholderAPIURL,
-)
+)({})
 
 export interface ErrorType<Error> extends AxiosError<Error> {}
