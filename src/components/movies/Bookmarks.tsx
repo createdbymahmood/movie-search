@@ -2,7 +2,7 @@ import {Container, Grid, Text} from '@mantine/core'
 import {useSession} from 'next-auth/react'
 import * as React from 'react'
 
-import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark'
+import {useBookmarksInLocalStorage} from '@/components/movies/hooks/useBookmarksInLocalStorage'
 import {MovieCard} from '@/components/movies/MovieSearch/MovieCard'
 import {useGetIds} from '@/lib/data-provider/OMDB/useGetIds'
 import {toClientErrorMessage} from '@/utils/error'
