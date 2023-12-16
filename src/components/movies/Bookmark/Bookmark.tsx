@@ -2,7 +2,7 @@ import {Button} from '@mantine/core'
 import {useSession} from 'next-auth/react'
 import * as React from 'react'
 
-import {useBookmarksInLocalStorage} from '@/components/movies/hooks/useBookmarksInLocalStorage'
+import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
 
 function useBookmarkState({id}: BookmarkProps) {
     const session = useSession()
