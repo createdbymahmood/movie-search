@@ -1,18 +1,18 @@
 import '@mantine/core/styles.css'
 
 import {ColorSchemeScript} from '@mantine/core'
-import type {Metadata} from 'next'
 import {Inter} from 'next/font/google'
 import * as React from 'react'
 
 import {Providers} from '@/components/general/Providers'
+import {constructMetadata} from '@/utils/constructMetadata'
 
 const inter = Inter({subsets: ['latin']})
 
-export const metadata: Metadata = {
+export const metadata = constructMetadata({
     title: 'Movie Search',
-    description: '',
-}
+    description: 'A place to find your favorite movie',
+})
 
 interface LayoutProps {
     children: React.ReactNode
