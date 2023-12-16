@@ -1,7 +1,7 @@
 import type {Metadata} from 'next'
 import * as React from 'react'
 
-import {Movie} from '@/components/movies/Movie'
+import {Movie} from '@/components/movies/Movie/Movie'
 import {getId} from '@/lib/data-provider/OMDB/__generated'
 import type {MovieDetails} from '@/lib/data-provider/OMDB/types'
 import {constructMetadata} from '@/utils/constructMetadata'

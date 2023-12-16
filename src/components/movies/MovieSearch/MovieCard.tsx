@@ -12,9 +12,12 @@ import {DEFAULT_MOVIE_POSTER} from '~~/configs/constants'
 export interface MovieCardProps {
     movie: Movie
 }
-const Bookmark = dynamic(() => import('@/components/movies/Bookmark'), {
-    loading: () => <Loader size='sm' />,
-})
+const Bookmark = dynamic(
+    () => import('@/components/movies/Bookmark/Bookmark'),
+    {
+        loading: () => <Loader size='sm' />,
+    },
+)
 
 export const MovieCard: React.FC<MovieCardProps> = ({movie}) => {
     const image: React.ReactNode = (() => {

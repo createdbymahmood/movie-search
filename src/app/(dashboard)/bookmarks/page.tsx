@@ -12,9 +12,12 @@ const fallback = (
     </Container>
 )
 
-const Bookmarks = dynamic(() => import('@/components/movies/Bookmarks'), {
-    loading: () => fallback,
-})
+const Bookmarks = dynamic(
+    () => import('@/components/movies/Bookmark/Bookmarks'),
+    {
+        loading: () => fallback,
+    },
+)
 
 const Page: React.FC = () => {
     return (
