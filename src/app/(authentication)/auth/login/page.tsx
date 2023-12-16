@@ -5,6 +5,7 @@ import {constructMetadata} from '@/utils/constructMetadata'
 
 export const metadata = constructMetadata({
     title: 'Login Page',
+    description: 'This is the place where everything start...',
 })
 
 const Page: React.FC = () => {

@@ -6,16 +6,22 @@ import * as React from 'react'
 
 import {MovieSearchSkeleton} from '@/components/movies/MovieSearch/MovieSearchSkeleton'
 
+const fallback = (
+    <Container py={20}>
+        <MovieSearchSkeleton />
+    </Container>
+)
+
 const Bookmarks = dynamic(() => import('@/components/movies/Bookmarks'), {
-    loading: () => (
-        <Container py={20}>
-            <MovieSearchSkeleton />
-        </Container>
-    ),
+    loading: () => fallback,
 })
 
 const Page: React.FC = () => {
-    return <Bookmarks />
+    return (
+        <React.Suspense>
+            <Bookmarks />
+        </React.Suspense>
+    )
 }
 
 export default Page
