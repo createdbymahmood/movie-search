@@ -1,11 +1,10 @@
 import {Button} from '@mantine/core'
-import {useSession} from 'next-auth/react'
 import * as React from 'react'
 
+import {withAuth} from '@/components/authentication/HOC/withAuth'
 import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
 
 function useBookmarkState({id}: BookmarkProps) {
-    const session = useSession()
     const [bookmarks, setBookmarks] = useBookmarksInLocalStorage()
     const movieId = id
 
@@ -22,7 +21,13 @@ function useBookmarkState({id}: BookmarkProps) {
     }
 
     const isBookmarked = bookmarks.includes(movieId)
-    return {bookmarks, setBookmarks, toggleBookmark, isBookmarked, session}
+
+    return {
+        bookmarks,
+        setBookmarks,
+        toggleBookmark,
+        isBookmarked,
+    }
 }
 
 export interface BookmarkProps {
@@ -31,8 +36,6 @@ export interface BookmarkProps {
 
 const Bookmark: React.FC<BookmarkProps> = ({id}) => {
     const state = useBookmarkState({id})
-
-    if (!state.session.data) return <React.Fragment />
     return (
         <Button
             color={state.isBookmarked ? 'red' : 'blue'}
@@ -43,4 +46,4 @@ const Bookmark: React.FC<BookmarkProps> = ({id}) => {
     )
 }
 
-export default Bookmark
+export default withAuth(Bookmark)

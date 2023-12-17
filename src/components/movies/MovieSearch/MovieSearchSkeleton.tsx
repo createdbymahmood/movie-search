@@ -9,7 +9,7 @@ export const MovieSearchSkeleton: React.FC = () => {
         <Grid>
             {range(10).map((index) => (
                 <Grid.Col key={index} span={{lg: 3, md: 4, sm: 6, xs: 12}}>
-                    <Skeleton height={200} width='100%' />
+                    <Skeleton animate={false} height={200} width='100%' />
                 </Grid.Col>
             ))}
         </Grid>

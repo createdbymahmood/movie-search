@@ -1,13 +1,11 @@
 import {useLocalStorage} from '@mantine/hooks'
-import {get} from 'lodash'
-import {useSession} from 'next-auth/react'
+
+import {useSessionEmail} from '@/hooks/useSessionEmail'
 
 export const useBookmarksInLocalStorage = () => {
-    const session = useSession()
-
-    const key = `bookmarks-key-${get(session, 'data.session.user.email')}`
+    const email = useSessionEmail()
+    const key = `bookmarks-key-${email}`
     return useLocalStorage({
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         key,
         defaultValue: [] as string[],
     })
