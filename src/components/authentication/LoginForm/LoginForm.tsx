@@ -33,20 +33,24 @@ function useLoginFormState() {
     const onSubmit: React.ComponentProps<
         typeof LoginFormView
     >['onSubmit'] = async (values) => {
-        const response = await signIn('credentials', {
-            ...values,
-            redirect: false,
-        })
+        try {
+            const response = await signIn('credentials', {
+                ...values,
+                redirect: false,
+            })
 
-        if (response?.error) {
-            const message = transformNextAuthErrorToReadableMessages(
-                response.error as NextAuthError,
-            )
-            form.setError('email', {message})
-            return
+            if (response?.error) {
+                const message = transformNextAuthErrorToReadableMessages(
+                    response.error as NextAuthError,
+                )
+                form.setError('email', {message})
+                return
+            }
+
+            router.push(callbackUrl)
+        } catch (error) {
+            /* CATCH THE EXCEPTION */
         }
-
-        router.push(callbackUrl)
     }
 
     return {form: {...form, onSubmit}, router}

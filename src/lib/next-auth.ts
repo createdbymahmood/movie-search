@@ -33,23 +33,28 @@ const credentialsProviderConfig: UserCredentialsConfig<
     },
 
     async authorize(credentials) {
-        // Add logic here to look up the user from the credentials supplied
+        try {
+            // Add logic here to look up the user from the credentials supplied
 
-        const users = await getUsers()
-        const user = find(users, {
-            email: credentials?.email,
-            username: credentials?.password,
-        })
-        // const user = {id: '1', name: 'J Smith', email: 'jsmith@example.com'}
+            const users = await getUsers()
 
-        if (user) {
-            // Any object returned will be saved in `user` property of the JWT
-            return user as PromiseLike<User>
-        } else {
-            // If you return null then an error will be displayed advising the user to check their details.
+            const user = find(users, {
+                email: credentials?.email,
+                username: credentials?.password,
+            })
+            // const user = {id: '1', name: 'J Smith', email: 'jsmith@example.com'}
+
+            if (user) {
+                // Any object returned will be saved in `user` property of the JWT
+                return await (user as PromiseLike<User>)
+            } else {
+                // If you return null then an error will be displayed advising the user to check their details.
+                return null
+
+                // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+            }
+        } catch (error) {
             return null
-
-            // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
     },
 }

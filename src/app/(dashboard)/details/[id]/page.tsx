@@ -14,12 +14,18 @@ interface Props {
 export async function generateMetadata({params}: Props): Promise<Metadata> {
     const id = params.id
 
-    const movie = (await getId({i: id})) as unknown as MovieDetails
-
-    return constructMetadata({
-        title: movie.Title,
-        description: movie.Plot,
-    })
+    try {
+        const movie = (await getId({i: id})) as unknown as MovieDetails
+        return constructMetadata({
+            title: movie.Title,
+            description: movie.Plot,
+        })
+    } catch (error) {
+        return constructMetadata({
+            title: 'Movie',
+            description: 'A place to find your favorite movie',
+        })
+    }
 }
 
 const Page: React.FC = () => {
