@@ -1,10 +1,11 @@
 'use client'
 
-import {Container} from '@mantine/core'
+import {Container, Loader} from '@mantine/core'
 import isUrl from 'is-url'
 import {useParams} from 'next/navigation'
 import * as React from 'react'
 
+import {AppErrorBoundary} from '@/components/general/AppErrorBoundary'
 import {useGetId} from '@/lib/data-provider/OMDB/__generated'
 import type {MovieDetails} from '@/lib/data-provider/OMDB/types'
 
@@ -14,7 +15,7 @@ function useMovieState() {
     return {movieByIdQuery}
 }
 
-export const Movie: React.FC = () => {
+const MovieImpl: React.FC = () => {
     const state = useMovieState()
 
     const image = isUrl(
@@ -30,5 +31,15 @@ export const Movie: React.FC = () => {
             </pre>
             {image}
         </Container>
+    )
+}
+
+export const Movie: React.FC = () => {
+    return (
+        <React.Suspense fallback={<Loader />}>
+            <AppErrorBoundary>
+                <MovieImpl />
+            </AppErrorBoundary>
+        </React.Suspense>
     )
 }
