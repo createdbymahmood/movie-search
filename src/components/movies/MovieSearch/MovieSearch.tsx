@@ -8,6 +8,7 @@ import {useRouter} from 'next/navigation'
 import {signOut} from 'next-auth/react'
 import * as React from 'react'
 
+import {AppErrorBoundary} from '@/components/general/AppErrorBoundary'
 import {MovieSearchContent} from '@/components/movies/MovieSearch/MovieSearchContent'
 import {MovieSearchSkeleton} from '@/components/movies/MovieSearch/MovieSearchSkeleton'
 import {
@@ -65,7 +66,9 @@ export const MovieSearch = () => {
                 </Stack>
 
                 <React.Suspense fallback={<MovieSearchSkeleton />}>
-                    <MovieSearchContent />
+                    <AppErrorBoundary>
+                        <MovieSearchContent />
+                    </AppErrorBoundary>
                 </React.Suspense>
             </Stack>
         </Container>
