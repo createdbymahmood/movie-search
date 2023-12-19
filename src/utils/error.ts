@@ -19,6 +19,7 @@ export const transformNextAuthErrorToReadableMessages = (
 export const toClientErrorMessage = (error: unknown): string => {
     try {
         if (isString(error)) return error
+        if (Boolean(get(error, 'message'))) return (error as Error).message
         const errorMessage = get(error, ['data', 'message'])
         return errorMessage ?? DEFAULT_ERROR_MESSAGE
     } catch {
