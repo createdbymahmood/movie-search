@@ -39,4 +39,19 @@ export default defineConfig({
             target: '../swagger/jsonplaceholder.json',
         },
     },
+    TMDB: {
+        output: {
+            ...defaultOutputOptions,
+            target: '../src/lib/data-provider/TMDB/__generated.ts',
+            override: {
+                mutator: {
+                    path: '../src/lib/axios.ts',
+                    name: 'TMDBInstance',
+                },
+            },
+        },
+        input: {
+            target: '../swagger/TMDB.yaml',
+        },
+    },
 })

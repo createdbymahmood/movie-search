@@ -5,6 +5,9 @@ declare global {
             readonly NEXT_PUBLIC_OMDB_API_URL: string
             readonly NEXT_PUBLIC_OMDB_API_KEY: string
             readonly NEXTAUTH_SECRET: string
+            readonly NEXT_PUBLIC_TMDB_API_URL: string
+            readonly NEXT_PUBLIC_TMDB_API_KEY: string
+            readonly NEXT_PUBLIC_TMDB_IMAGES_BASEPATH: string
         }
     }
 }

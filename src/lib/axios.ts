@@ -31,8 +31,13 @@ export const createCustomInstance =
 export const OMDBAxiosInstance = createCustomInstance(env.OMDBAPIURL, {
     params: {apiKey: env.OMDBAPIKey},
 })
+
 export const JsonPlaceholderInstance = createCustomInstance(
     env.JsonPlaceholderAPIURL,
 )
+
+export const TMDBInstance = createCustomInstance(env.TMDBAPIURL, {
+    params: {api_key: env.TMDBAPIKey},
+})
 
 export interface ErrorType<Error> extends AxiosError<Error> {}
