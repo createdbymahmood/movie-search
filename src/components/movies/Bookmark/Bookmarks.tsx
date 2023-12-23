@@ -1,7 +1,7 @@
 'use client'
 
 import {Container, Grid, Text, useMantineTheme} from '@mantine/core'
-import {isNumber, reduce, some} from 'lodash'
+import {filter, map, negate, reduce, some} from 'lodash'
 import * as React from 'react'
 
 import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
@@ -11,38 +11,37 @@ import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movi
 import {useGetMovieMovieIds} from '@/lib/data-provider/TMDB/useGetIds'
 import {toClientErrorMessage} from '@/utils/error'
 
+const isString = (value: unknown) => typeof value === 'string'
+
 function useBookmarksState() {
+    const theme = useMantineTheme()
     const [bookmarksInLocalStorage] = useBookmarksInLocalStorage()
     /* Backward compatibility */
-    const bookmarks = bookmarksInLocalStorage.filter((bookmarkId) =>
-        isNumber(bookmarkId),
-    )
+    const bookmarks = filter(bookmarksInLocalStorage, negate(isString))
+
     const moviesQuery = useGetMovieMovieIds(bookmarks, {
         /* @ts-ignore because of some uknown TS errors */
         query: {suspense: false},
     })
-    const theme = useMantineTheme()
-    const moviesQueriesData = moviesQuery.map(
+    const moviesQueriesData = map(
+        moviesQuery,
         (query) => query.data ?? ([] as unknown as MovieSearchResult),
     )
     const isLoading = some(moviesQuery, 'isLoading')
     const isError = some(moviesQuery, 'isError')
     const error = reduce(
         moviesQuery,
-        (prev, curr) => prev.concat(toClientErrorMessage(curr.error)),
+        (prev, curr) => {
+            if (!curr.error) return prev.concat('')
+            return prev.concat(toClientErrorMessage(curr.error))
+        },
         '',
     )
 
     return {
         bookmarks,
-        moviesQueriesData,
         theme,
-        moviesQuery: {
-            isLoading,
-            data: moviesQueriesData,
-            isError,
-            error,
-        },
+        moviesQuery: {isLoading, data: moviesQueriesData, isError, error},
     }
 }
 

@@ -8,8 +8,8 @@ export function withAuth<T extends object>(WrappedComponent: React.FC<T>) {
 
     // Creating the inner component. The calculated Props type here is the where the magic happens.
     const ComponentWithAuth = (props: T) => {
-        const session = useSession()
         const theme = useMantineTheme()
+        const session = useSession()
         // Fetch the props you want to inject. This could be done with context instead.
 
         if (session.status === 'loading') {
