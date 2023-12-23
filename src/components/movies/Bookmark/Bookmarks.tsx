@@ -1,7 +1,7 @@
 'use client'
 
 import {Container, Grid, Text, useMantineTheme} from '@mantine/core'
-import {reduce, some} from 'lodash'
+import {isNumber, reduce, some} from 'lodash'
 import * as React from 'react'
 
 import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
@@ -12,8 +12,11 @@ import {useGetMovieMovieIds} from '@/lib/data-provider/TMDB/useGetIds'
 import {toClientErrorMessage} from '@/utils/error'
 
 function useBookmarksState() {
-    const [bookmarks] = useBookmarksInLocalStorage()
-
+    const [bookmarksInLocalStorage] = useBookmarksInLocalStorage()
+    /* Backward compatibility */
+    const bookmarks = bookmarksInLocalStorage.filter((bookmarkId) =>
+        isNumber(bookmarkId),
+    )
     const moviesQuery = useGetMovieMovieIds(bookmarks, {
         /* @ts-ignore because of some uknown TS errors */
         query: {suspense: false},
