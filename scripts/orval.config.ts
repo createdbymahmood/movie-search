@@ -8,22 +8,6 @@ const defaultOutputOptions: Options['output'] = {
 }
 
 export default defineConfig({
-    OMDB: {
-        output: {
-            ...defaultOutputOptions,
-            mode: 'single',
-            target: '../src/lib/data-provider/OMDB/__generated.ts',
-            override: {
-                mutator: {
-                    path: '../src/lib/axios.ts',
-                    name: 'OMDBAxiosInstance',
-                },
-            },
-        },
-        input: {
-            target: '../swagger/omdb.json',
-        },
-    },
     JsonPlaceholder: {
         output: {
             ...defaultOutputOptions,

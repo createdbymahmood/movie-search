@@ -10,7 +10,7 @@ interface ConstructMetadataParams {
 const defaultMetadata: Required<ConstructMetadataParams> = {
     title: 'Movie Search',
     description:
-        'The OMDb API is a RESTful web service to obtain movie information, all content and images on the site are contributed and maintained by our users.',
+        'The TMDB API is a RESTful web service to obtain movie information, all content and images on the site are contributed and maintained by our users.',
     image: 'https://images.unsplash.com/photo-1484242857719-4b9144542727?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80',
     icons: '/next.svg',
 }
