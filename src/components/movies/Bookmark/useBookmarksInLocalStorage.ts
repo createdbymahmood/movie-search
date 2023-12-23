@@ -7,6 +7,6 @@ export const useBookmarksInLocalStorage = () => {
     const key = `bookmarks-key-${email}`
     return useLocalStorage({
         key,
-        defaultValue: [] as string[],
+        defaultValue: [] as number[],
     })
 }

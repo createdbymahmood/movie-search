@@ -1,4 +1,4 @@
-import {Container, Loader} from '@mantine/core'
+import {Container, Loader, useMantineTheme} from '@mantine/core'
 import {useSession} from 'next-auth/react'
 
 export function withAuth<T extends object>(WrappedComponent: React.FC<T>) {
@@ -9,12 +9,13 @@ export function withAuth<T extends object>(WrappedComponent: React.FC<T>) {
     // Creating the inner component. The calculated Props type here is the where the magic happens.
     const ComponentWithAuth = (props: T) => {
         const session = useSession()
+        const theme = useMantineTheme()
         // Fetch the props you want to inject. This could be done with context instead.
 
         if (session.status === 'loading') {
             // eslint-disable-next-line react/jsx-no-useless-fragment
             return (
-                <Container py={20}>
+                <Container py={theme.spacing.lg}>
                     <Loader size={20} />
                 </Container>
             )

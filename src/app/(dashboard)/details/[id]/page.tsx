@@ -1,9 +1,10 @@
+import {toNumber} from 'lodash'
 import type {Metadata} from 'next'
 import * as React from 'react'
 
 import {Movie} from '@/components/movies/Movie/Movie'
-import {getId} from '@/lib/data-provider/OMDB/__generated'
-import type {MovieDetails} from '@/lib/data-provider/OMDB/types'
+import {getMovieMovieId} from '@/lib/data-provider/TMDB/__generated'
+import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movies'
 import {constructMetadata} from '@/utils/constructMetadata'
 
 interface Props {
@@ -12,13 +13,16 @@ interface Props {
 }
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
-    const id = params.id
+    const id = toNumber(params.id)
 
     try {
-        const movie = (await getId({i: id})) as unknown as MovieDetails
+        const movie = (await getMovieMovieId(
+            id,
+        )) as unknown as MovieSearchResult
+
         return constructMetadata({
-            title: movie.Title,
-            description: movie.Plot,
+            title: movie.title,
+            description: movie.overview,
         })
     } catch (error) {
         return constructMetadata({

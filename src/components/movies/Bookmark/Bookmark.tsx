@@ -9,7 +9,7 @@ function useBookmarkState({id}: BookmarkProps) {
     const movieId = id
 
     const toggleBookmark = () => {
-        const updater = (prevBookmarks: string[]) => {
+        const updater = (prevBookmarks: number[]) => {
             if (prevBookmarks.includes(movieId))
                 return prevBookmarks.filter(
                     (bookmarkId) => bookmarkId !== movieId,
@@ -31,11 +31,12 @@ function useBookmarkState({id}: BookmarkProps) {
 }
 
 export interface BookmarkProps {
-    id: string
+    id: number
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({id}) => {
     const state = useBookmarkState({id})
+
     return (
         <Button
             color={state.isBookmarked ? 'red' : 'blue'}
