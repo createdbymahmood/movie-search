@@ -7,7 +7,7 @@ NEXT_PUBLIC_OMDB_API_URL="https://www.omdbapi.com"
 NEXT_PUBLIC_OMDB_API_KEY="ece1146b"
 NEXT_PUBLIC_TMDB_API_URL="https://api.themoviedb.org/3/"
 NEXT_PUBLIC_TMDB_API_KEY="5736ba1a33ee5dde21b50d0814f69876"
-
+NEXT_PUBLIC_TMDB_IMAGES_BASEPATH="https://image.tmdb.org/t/p/original"
 ```
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
