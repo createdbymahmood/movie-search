@@ -28,10 +28,6 @@ export const createCustomInstance =
         return promise
     }
 
-export const OMDBAxiosInstance = createCustomInstance(env.OMDBAPIURL, {
-    params: {apiKey: env.OMDBAPIKey},
-})
-
 export const JsonPlaceholderInstance = createCustomInstance(
     env.JsonPlaceholderAPIURL,
 )
