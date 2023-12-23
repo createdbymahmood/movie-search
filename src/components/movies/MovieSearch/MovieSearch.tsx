@@ -1,11 +1,9 @@
 'use client'
 
-import {Button, Container, Stack, TextInput} from '@mantine/core'
+import {Container, Loader, Stack, TextInput} from '@mantine/core'
 import {useCallbackRef} from '@mantine/hooks'
 import {debounce} from 'lodash'
-import Link from 'next/link'
-import {useRouter} from 'next/navigation'
-import {signOut} from 'next-auth/react'
+import dynamic from 'next/dynamic'
 import * as React from 'react'
 
 import {AppErrorBoundary} from '@/components/general/AppErrorBoundary'
@@ -16,10 +14,14 @@ import {
     useMovieQueryParamStates,
 } from '@/components/movies/MovieSearch/useMovieQueryParamStates'
 
+const Navigation = dynamic(() => import('@/components/general/Navigation'), {
+    loading: () => <Loader size={20} />,
+    ssr: false,
+})
+
 function useMovieSearchState() {
     const [queryParams, setQueryParams] = useMovieQueryParamStates()
 
-    const router = useRouter()
     const onSearchInputChange = useCallbackRef(
         debounce((event: React.ChangeEvent<HTMLInputElement>): void => {
             const value = event.target.value
@@ -27,16 +29,7 @@ function useMovieSearchState() {
         }, 1000),
     )
 
-    const handleSignOut = () => {
-        try {
-            void signOut({redirect: false})
-            router.push(`/auth/login`)
-        } catch (error) {
-            /* CATCH THE EXCEPTION */
-        }
-    }
-
-    return {queryParams, onSearchInputChange, handleSignOut}
+    return {queryParams, onSearchInputChange}
 }
 
 export const MovieSearch = () => {
@@ -49,12 +42,7 @@ export const MovieSearch = () => {
                 py={50}
                 style={{flexDirection: 'column'}}
             >
-                <Stack style={{flexDirection: 'row'}}>
-                    <Button onClick={state.handleSignOut}>Sign out</Button>
-                    <Button component={Link} href='/bookmarks'>
-                        Boookmarks
-                    </Button>
-                </Stack>
+                <Navigation />
 
                 <Stack style={{flexDirection: 'row'}}>
                     <TextInput
