@@ -1,6 +1,6 @@
 'use client'
 
-import {isEmpty, toNumber, toString} from 'lodash'
+import {toNumber, toString} from 'lodash'
 
 import {useMovieQueryParamStates} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
 import type {GetSearchMovieParams} from '@/lib/data-provider/TMDB/__generated'
@@ -14,6 +14,8 @@ export function useMovieSearchState() {
     const searchByTitleQuery = useGetSearchMovie<MoviesSearchResults>({
         query: queryParams.search,
         page,
+        sort_by: queryParams.sortBy,
+        include_adult: queryParams.includeAdult,
     } as unknown as GetSearchMovieParams)
 
     const onPageChange = (value: number): void =>
