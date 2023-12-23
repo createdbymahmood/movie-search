@@ -15,7 +15,7 @@ import {
 } from '@/components/movies/MovieSearch/useMovieQueryParamStates'
 
 const Navigation = dynamic(() => import('@/components/general/Navigation'), {
-    loading: () => <Loader size={20} />,
+    loading: () => <Loader size={36} />,
     ssr: false,
 })
 
