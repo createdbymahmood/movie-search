@@ -1,38 +1,35 @@
 'use client'
 
-import {divide, floor, toNumber, toString} from 'lodash'
+import {isEmpty, toNumber, toString} from 'lodash'
 
 import {useMovieQueryParamStates} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
-import {useTitleSearch} from '@/lib/data-provider/OMDB/__generated'
-import type {TitleSearchResponse} from '@/lib/data-provider/OMDB/types'
+import type {GetSearchMovieParams} from '@/lib/data-provider/TMDB/__generated'
+import {useGetSearchMovie} from '@/lib/data-provider/TMDB/__generated'
+import type {MoviesSearchResults} from '@/lib/data-provider/TMDB/types/search/movies'
 
 export function useMovieSearchState() {
     const [queryParams, setQueryParams] = useMovieQueryParamStates()
 
-    const searchByTitleQuery = useTitleSearch<TitleSearchResponse>({
-        s: queryParams.search,
-        page: toNumber(queryParams.page),
-    })
-
-    const perPage = 10
+    const page = toNumber(queryParams.page)
+    const searchByTitleQuery = useGetSearchMovie<MoviesSearchResults>({
+        query: queryParams.search,
+        page,
+    } as unknown as GetSearchMovieParams)
 
     const onPageChange = (value: number): void =>
         setQueryParams({page: toString(value)})
 
-    const totalPagesCount: number = (() => {
-        const totalMoviesCount =
-            toNumber(searchByTitleQuery.data?.totalResults) || 0
-        return floor(divide(totalMoviesCount, perPage))
-    })()
+    const totalPagesCount = searchByTitleQuery.data
+        ?.total_pages as unknown as number
 
     const pagination = {
         totalPagesCount,
         onPageChange,
         page: toNumber(queryParams.page),
-        perPage,
     }
 
-    const error = searchByTitleQuery.data?.Error ?? searchByTitleQuery.error
+    const error = searchByTitleQuery.error
+
     return {
         searchByTitleQuery,
         pagination,

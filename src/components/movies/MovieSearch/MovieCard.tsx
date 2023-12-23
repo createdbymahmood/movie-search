@@ -1,46 +1,92 @@
 'use client'
 
-import {Card, Grid, Loader, Text} from '@mantine/core'
-import isUrl from 'is-url'
+import {
+    AspectRatio,
+    Box,
+    Grid,
+    Skeleton,
+    Stack,
+    Text,
+    Tooltip,
+} from '@mantine/core'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import * as React from 'react'
 
-import type {Movie} from '@/lib/data-provider/OMDB/types'
-import {DEFAULT_MOVIE_POSTER} from '~~/configs/constants'
+import {useOverflow} from '@/hooks/useOverflow'
+import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movies'
+import {transformISO8601ToYYYYFormat} from '@/utils/date'
+import {createMoviePosterUrl} from '@/utils/movie'
 
 export interface MovieCardProps {
-    movie: Movie
+    movie: MovieSearchResult
 }
 const Bookmark = dynamic(
     () => import('@/components/movies/Bookmark/Bookmark'),
     {
-        loading: () => <Loader size='sm' />,
+        loading: () => <Skeleton h={36} />,
     },
 )
 
+const useMovieCardState = ({movie}: MovieCardProps) => {
+    const titleTextRef = React.useRef<HTMLParagraphElement>(null!)
+    const titleTextOverflowState = useOverflow(titleTextRef)
+    const isTooltipVisible = titleTextOverflowState.refXOverflowing
+    const tooltipContent = isTooltipVisible ? movie.title : null
+    return {
+        tooltipContent,
+        titleText: {
+            ref: titleTextRef,
+            overflowState: titleTextOverflowState,
+        },
+
+        isTooltipVisible,
+    }
+}
+
 export const MovieCard: React.FC<MovieCardProps> = ({movie}) => {
+    const state = useMovieCardState({movie})
     const image: React.ReactNode = (() => {
-        const posterUrl = isUrl(movie.Poster)
-            ? movie.Poster
-            : DEFAULT_MOVIE_POSTER
+        const posterUrl = createMoviePosterUrl(movie.poster_path)
 
         return (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img alt={movie.Title} src={posterUrl} />
+            <AspectRatio maw={300} mx='auto' ratio={720 / 1080}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img alt={movie.title} src={posterUrl} />
+            </AspectRatio>
         )
     })()
 
     return (
-        <Grid.Col key={movie.imdbID} span={{lg: 3, md: 4, sm: 6, xs: 12}}>
-            <Link href={`/details/${movie.imdbID}`}>
-                <Card>
+        <Grid.Col key={movie.id} h='100%' span={{lg: 3, md: 4, sm: 6, xs: 12}}>
+            <Stack>
+                <Box
+                    c='black'
+                    component={Link}
+                    h='100%'
+                    href={`/details/${movie.id}`}
+                    mt='auto'
+                    td='none'
+                    w='100%'
+                >
                     {image}
-                    <Text>{movie.Year}</Text>
-                    <Text>{movie.Title}</Text>
-                </Card>
-            </Link>
-            <Bookmark id={movie.imdbID} />
+                    <Text mt={5}>
+                        {transformISO8601ToYYYYFormat(movie.release_date)}
+                    </Text>
+                    <Tooltip
+                        label={state.tooltipContent}
+                        style={{
+                            display: state.isTooltipVisible ? 'block' : 'none',
+                        }}
+                        transitionProps={{transition: 'pop'}}
+                    >
+                        <Text ref={state.titleText.ref} mt={5} truncate>
+                            {movie.title}
+                        </Text>
+                    </Tooltip>
+                </Box>
+                <Bookmark id={movie.id} />
+            </Stack>
         </Grid.Col>
     )
 }
