@@ -25,6 +25,7 @@ const Bookmark = dynamic(
     () => import('@/components/movies/Bookmark/Bookmark'),
     {
         loading: () => <Skeleton h={36} />,
+        ssr: false,
     },
 )
 

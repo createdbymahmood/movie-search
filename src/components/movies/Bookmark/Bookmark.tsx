@@ -17,7 +17,7 @@ function useBookmarkState({id}: BookmarkProps) {
             return [...prevBookmarks, movieId]
         }
 
-        setBookmarks(updater)
+        setBookmarks(updater(bookmarks))
     }
 
     const isBookmarked = bookmarks.includes(movieId)

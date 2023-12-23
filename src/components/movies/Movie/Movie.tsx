@@ -1,12 +1,13 @@
 'use client'
 
 import type {ContainerFactory, Styles} from '@mantine/core'
-import {Box, Container, Loader, useMantineTheme} from '@mantine/core'
+import {Box, Container, useMantineTheme} from '@mantine/core'
 import {toNumber} from 'lodash'
 import {useParams} from 'next/navigation'
 import * as React from 'react'
 
 import {AppErrorBoundary} from '@/components/general/AppErrorBoundary'
+import {MoviesGridLoadingFallback} from '@/components/movies/Bookmark/Bookmarks'
 import {useGetMovieMovieId} from '@/lib/data-provider/TMDB/__generated'
 import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movies'
 import {createMoviePosterUrl} from '@/utils/movie'
@@ -48,7 +49,7 @@ const MovieImpl: React.FC = () => {
 
 export const Movie: React.FC = () => {
     return (
-        <React.Suspense fallback={<Loader />}>
+        <React.Suspense fallback={<MoviesGridLoadingFallback />}>
             <AppErrorBoundary>
                 <MovieImpl />
             </AppErrorBoundary>

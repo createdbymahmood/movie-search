@@ -1,12 +1,15 @@
-import {useLocalStorage} from '@mantine/hooks'
+import {filter, isString, negate} from 'lodash'
+import useLocalStorage from 'use-local-storage'
 
 import {useSessionEmail} from '@/hooks/useSessionEmail'
 
 export const useBookmarksInLocalStorage = () => {
     const email = useSessionEmail()
     const key = `bookmarks-key-${email}`
-    return useLocalStorage({
-        key,
-        defaultValue: [] as number[],
-    })
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const [_bookmarks, _setBookmarks] = useLocalStorage(key, [] as number[])
+
+    const bookmarks = filter(_bookmarks, negate(isString))
+    return [bookmarks, _setBookmarks] as const
 }

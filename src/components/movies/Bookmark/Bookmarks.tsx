@@ -1,7 +1,7 @@
 'use client'
 
 import {Container, Grid, Text, useMantineTheme} from '@mantine/core'
-import {filter, map, negate, reduce, some} from 'lodash'
+import {map, reduce, some} from 'lodash'
 import * as React from 'react'
 
 import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
@@ -11,13 +11,9 @@ import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movi
 import {useGetMovieMovieIds} from '@/lib/data-provider/TMDB/useGetIds'
 import {toClientErrorMessage} from '@/utils/error'
 
-const isString = (value: unknown) => typeof value === 'string'
-
 function useBookmarksState() {
     const theme = useMantineTheme()
-    const [bookmarksInLocalStorage] = useBookmarksInLocalStorage()
-    /* Backward compatibility */
-    const bookmarks = filter(bookmarksInLocalStorage, negate(isString))
+    const [bookmarks] = useBookmarksInLocalStorage()
 
     const moviesQuery = useGetMovieMovieIds(bookmarks, {
         /* @ts-ignore because of some uknown TS errors */
