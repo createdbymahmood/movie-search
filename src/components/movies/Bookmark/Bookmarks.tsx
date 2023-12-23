@@ -45,7 +45,7 @@ function useBookmarksState() {
     }
 }
 
-export const BookmarksLoadingFallback = () => {
+export const MoviesGridLoadingFallback = () => {
     const theme = useMantineTheme()
 
     return (
