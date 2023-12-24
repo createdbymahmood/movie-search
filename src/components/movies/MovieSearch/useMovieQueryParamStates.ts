@@ -22,13 +22,16 @@ export const sortByOptions = {
     'vote_count.asc': 'vote_count.asc',
     'vote_count.des': 'vote_count.desc',
 }
+const queryParamsConfig = {
+    search: withDefault(StringParam, ''),
+    page: withDefault(StringParam, DEFAULT_MOVIES_PAGE_NUMBER),
+    sortBy: withDefault(StringParam, sortByOptions['popularity.asc']),
+    includeAdult: withDefault(BooleanParam, false),
+}
 
 export function useMovieQueryParamStates() {
-    const [queryParams, setQueryParams] = useQueryParams({
-        search: withDefault(StringParam, ''),
-        page: withDefault(StringParam, DEFAULT_MOVIES_PAGE_NUMBER),
-        sortBy: withDefault(StringParam, sortByOptions['popularity.asc']),
-        includeAdult: withDefault(BooleanParam, false),
+    const [queryParams, setQueryParams] = useQueryParams(queryParamsConfig, {
+        updateType: 'pushIn',
     })
 
     return [queryParams, setQueryParams] as const

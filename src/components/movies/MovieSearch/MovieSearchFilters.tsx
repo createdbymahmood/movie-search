@@ -1,4 +1,5 @@
 import {Button, Checkbox, Menu, Stack} from '@mantine/core'
+import {IconArrowsSort} from '@tabler/icons-react'
 import * as React from 'react'
 
 import {
@@ -12,7 +13,9 @@ export const MovieSearchFilters: React.FC = () => {
     return (
         <Menu shadow='md' width='auto'>
             <Menu.Target>
-                <Button>Sort By</Button>
+                <Button color='orange'>
+                    <IconArrowsSort />
+                </Button>
             </Menu.Target>
 
             <Menu.Dropdown>
@@ -31,9 +34,11 @@ export const MovieSearchFilters: React.FC = () => {
                 </Menu.Item>
 
                 {Object.entries(sortByOptions).map(([key, value]) => {
+                    const color = queryParams.sortBy === key ? 'red' : 'black'
                     return (
                         <Menu.Item
                             key={key}
+                            c={color}
                             onClick={() => setQueryParams({sortBy: key})}
                         >
                             {value}
