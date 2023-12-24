@@ -12,7 +12,7 @@ export const transformNextAuthErrorToReadableMessages = (
             return 'Email or password is incorrect'
 
         default:
-            return 'Something went wrong'
+            return DEFAULT_ERROR_MESSAGE
     }
 }
 
