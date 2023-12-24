@@ -1,10 +1,11 @@
 'use client'
 
 import {Center, Grid, Pagination, Text} from '@mantine/core'
-import {isEmpty} from 'lodash'
+import {isEmpty, isNil} from 'lodash'
 import * as React from 'react'
 
 import {MovieCard} from '@/components/movies/MovieSearch/MovieCard'
+import {MovieSearchSkeleton} from '@/components/movies/MovieSearch/MovieSearchSkeleton'
 import {toClientErrorMessage} from '@/utils/error'
 
 import {useMovieSearchState} from './useMovieSearchState'
@@ -14,6 +15,7 @@ export const MovieSearchContent: React.FC = () => {
 
     const content = (() => {
         if (isEmpty(state.searchQuery)) return null
+        if (state.searchByTitleQuery.isFetching) return <MovieSearchSkeleton />
         if (state.error) return <Text>{toClientErrorMessage(state.error)}</Text>
         if (!state.searchByTitleQuery.data?.results.length)
             return (
@@ -31,8 +33,12 @@ export const MovieSearchContent: React.FC = () => {
         )
     })()
 
+    const hasPagination =
+        !isNil(state.pagination.totalPagesCount) &&
+        state.pagination.totalPagesCount > 1
+
     const pagination: React.ReactNode = (() => {
-        if (state.pagination.totalPagesCount <= 1) return null
+        if (!hasPagination) return null
         return (
             <Pagination
                 defaultValue={state.pagination.page}
