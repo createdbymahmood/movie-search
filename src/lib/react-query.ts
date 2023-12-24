@@ -5,9 +5,7 @@ import type {
 import {QueryClient} from '@tanstack/query-core'
 import {cache} from 'react'
 
-const defaultQueryOptions: QueryObserverOptions = {
-    suspense: true,
-}
+const defaultQueryOptions: QueryObserverOptions = {}
 
 export const queryClientConfig: QueryClientConfig = {
     defaultOptions: {queries: defaultQueryOptions},

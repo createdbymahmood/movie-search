@@ -2,14 +2,11 @@
 
 import {Box, Button, Container, Loader, Stack, TextInput} from '@mantine/core'
 import dynamic from 'next/dynamic'
-import * as React from 'react'
 import type {UseFormProps} from 'react-hook-form'
 import {useForm} from 'react-hook-form'
 
-import {AppErrorBoundary} from '@/components/general/AppErrorBoundary'
 import {MovieSearchContent} from '@/components/movies/MovieSearch/MovieSearchContent'
 import {MovieSearchFilters} from '@/components/movies/MovieSearch/MovieSearchFilters'
-import {MovieSearchSkeleton} from '@/components/movies/MovieSearch/MovieSearchSkeleton'
 import {
     DEFAULT_MOVIES_PAGE_NUMBER,
     useMovieQueryParamStates,
@@ -32,9 +29,7 @@ function useMovieSearchInputState() {
     > = {
         defaultValues: {search: queryParams.search},
     }
-
     const form = useForm<MovieSearchFormValues>(defaultMovieSearchFormProps)
-
     const onSubmit = form.handleSubmit(({search}) => {
         setQueryParams({search, page: DEFAULT_MOVIES_PAGE_NUMBER})
     })
@@ -51,7 +46,7 @@ const MovieSearchInput = () => {
                 <TextInput
                     {...state.form.register('search')}
                     defaultValue={state.queryParams.search}
-                    placeholder='Search movie name and wait...'
+                    placeholder='eg: Interstellar...'
                     style={{flex: 1}}
                 />
                 <MovieSearchFilters />
@@ -76,11 +71,7 @@ export const MovieSearch = () => {
                     <MovieSearchInput />
                 </Stack>
 
-                <React.Suspense fallback={<MovieSearchSkeleton />}>
-                    <AppErrorBoundary>
-                        <MovieSearchContent />
-                    </AppErrorBoundary>
-                </React.Suspense>
+                <MovieSearchContent />
             </Stack>
         </Container>
     )
