@@ -10,6 +10,35 @@ import {
 export const MovieSearchFilters: React.FC = () => {
     const [queryParams, setQueryParams] = useMovieQueryParamStates()
 
+    const options = (
+        <React.Fragment>
+            <Menu.Item>
+                <Stack style={{flexDirection: 'row'}}>
+                    <Checkbox
+                        defaultChecked={queryParams.includeAdult}
+                        onChange={(e) =>
+                            setQueryParams({includeAdult: e.target.checked})
+                        }
+                    />
+                    Include adult
+                </Stack>
+            </Menu.Item>
+
+            {Object.entries(sortByOptions).map(([key, value]) => {
+                const color = queryParams.sortBy === key ? 'red' : 'black'
+                return (
+                    <Menu.Item
+                        key={key}
+                        c={color}
+                        onClick={() => setQueryParams({sortBy: key})}
+                    >
+                        {value}
+                    </Menu.Item>
+                )
+            })}
+        </React.Fragment>
+    )
+
     return (
         <Menu shadow='md' width='auto'>
             <Menu.Target>
@@ -20,31 +49,7 @@ export const MovieSearchFilters: React.FC = () => {
 
             <Menu.Dropdown>
                 <Menu.Label>Sort by</Menu.Label>
-
-                <Menu.Item>
-                    <Stack style={{flexDirection: 'row'}}>
-                        <Checkbox
-                            defaultChecked={queryParams.includeAdult}
-                            onChange={(e) =>
-                                setQueryParams({includeAdult: e.target.checked})
-                            }
-                        />
-                        Include adult
-                    </Stack>
-                </Menu.Item>
-
-                {Object.entries(sortByOptions).map(([key, value]) => {
-                    const color = queryParams.sortBy === key ? 'red' : 'black'
-                    return (
-                        <Menu.Item
-                            key={key}
-                            c={color}
-                            onClick={() => setQueryParams({sortBy: key})}
-                        >
-                            {value}
-                        </Menu.Item>
-                    )
-                })}
+                {options}
             </Menu.Dropdown>
         </Menu>
     )
