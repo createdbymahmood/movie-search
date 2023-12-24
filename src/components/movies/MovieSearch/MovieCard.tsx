@@ -34,13 +34,13 @@ const useMovieCardState = ({movie}: MovieCardProps) => {
     const titleTextOverflowState = useOverflow(titleTextRef)
     const isTooltipVisible = titleTextOverflowState.refXOverflowing
     const tooltipContent = isTooltipVisible ? movie.title : null
+
     return {
         tooltipContent,
         titleText: {
             ref: titleTextRef,
             overflowState: titleTextOverflowState,
         },
-
         isTooltipVisible,
     }
 }

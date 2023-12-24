@@ -4,7 +4,7 @@ import {useSession} from 'next-auth/react'
 export function withAuth<T extends object>(WrappedComponent: React.FC<T>) {
     // Try to create a nice displayName for React Dev Tools.
     const displayName =
-        WrappedComponent.displayName || WrappedComponent.name || 'Component'
+        WrappedComponent.displayName ?? (WrappedComponent.name || 'Component')
 
     // Creating the inner component. The calculated Props type here is the where the magic happens.
     const ComponentWithAuth = (props: T) => {

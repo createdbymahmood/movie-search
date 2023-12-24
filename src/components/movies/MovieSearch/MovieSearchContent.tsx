@@ -12,12 +12,17 @@ import {useMovieSearchState} from './useMovieSearchState'
 
 export const MovieSearchContent: React.FC = () => {
     const state = useMovieSearchState()
+    const {
+        searchByTitleQuery: {isFetching, data},
+        searchQuery,
+        error,
+    } = state
 
     const content = (() => {
-        if (isEmpty(state.searchQuery)) return null
-        if (state.searchByTitleQuery.isFetching) return <MovieSearchSkeleton />
-        if (state.error) return <Text>{toClientErrorMessage(state.error)}</Text>
-        if (!state.searchByTitleQuery.data?.results.length)
+        if (isEmpty(searchQuery)) return null
+        if (isFetching) return <MovieSearchSkeleton />
+        if (error) return <Text>{toClientErrorMessage(error)}</Text>
+        if (!data?.results.length)
             return (
                 <Text>
                     No Movies found with search query of "{state.searchQuery}"
@@ -26,16 +31,15 @@ export const MovieSearchContent: React.FC = () => {
 
         return (
             <Grid>
-                {state.searchByTitleQuery.data.results.map((movie) => (
+                {data.results.map((movie) => (
                     <MovieCard key={movie.id} movie={movie} />
                 ))}
             </Grid>
         )
     })()
 
-    const hasPagination =
-        !isNil(state.pagination.totalPagesCount) &&
-        state.pagination.totalPagesCount > 1
+    const {totalPagesCount} = state.pagination
+    const hasPagination = !isNil(totalPagesCount) && totalPagesCount > 1
 
     const pagination: React.ReactNode = (() => {
         if (!hasPagination) return null

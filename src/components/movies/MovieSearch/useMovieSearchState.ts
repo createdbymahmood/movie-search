@@ -13,8 +13,8 @@ export function useMovieSearchState() {
     const enabled = !isEmpty(queryParams.search)
 
     const searchByTitleQueryParams = {
-        query: queryParams.search,
         page,
+        query: queryParams.search,
         sort_by: queryParams.sortBy,
         include_adult: queryParams.includeAdult,
     }
@@ -28,14 +28,10 @@ export function useMovieSearchState() {
         setQueryParams({page: toString(value)})
     })
 
-    const totalPagesCount = searchByTitleQuery.data
-        ?.total_pages as unknown as number
+    const data = searchByTitleQuery.data
+    const totalPagesCount = data?.total_pages as unknown as number
 
-    const pagination = {
-        totalPagesCount,
-        onPageChange,
-        page: toNumber(queryParams.page),
-    }
+    const pagination = {totalPagesCount, onPageChange, page}
 
     const error = searchByTitleQuery.error
 

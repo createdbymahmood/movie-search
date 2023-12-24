@@ -9,7 +9,10 @@ import {StringParam, useQueryParam, withDefault} from 'use-query-params'
 
 import {loginFormValidationSchema} from '@/components/authentication/LoginForm/LoginFormValidationSchema'
 import type {NextAuthError} from '@/utils/error'
-import {transformNextAuthErrorToReadableMessages} from '@/utils/error'
+import {
+    toClientErrorMessage,
+    transformNextAuthErrorToReadableMessages,
+} from '@/utils/error'
 import MOCKED_USER from '~~/fixtures/user.json'
 
 import type * as LoginFormTypes from './LoginForm.types'
@@ -50,6 +53,7 @@ function useLoginFormState() {
             router.push(callbackUrl)
         } catch (error) {
             /* CATCH THE EXCEPTION */
+            form.setError('email', {message: toClientErrorMessage(error)})
         }
     }
 

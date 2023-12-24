@@ -1,14 +1,37 @@
 import {Button, Checkbox, Menu, Stack} from '@mantine/core'
 import {IconArrowsSort} from '@tabler/icons-react'
+import {entries, map, pipe} from 'lodash/fp'
 import * as React from 'react'
 
+import type {UseMovieQueryParamStatesReturnType} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
 import {
     sortByOptions,
     useMovieQueryParamStates,
 } from '@/components/movies/MovieSearch/useMovieQueryParamStates'
 
+const renderOptions = ([
+    queryParams,
+    setQueryParams,
+]: UseMovieQueryParamStatesReturnType) =>
+    pipe(
+        entries,
+        map(([key, value]) => {
+            const color = queryParams.sortBy === key ? 'red' : 'black'
+            return (
+                <Menu.Item
+                    key={key}
+                    c={color}
+                    onClick={() => setQueryParams({sortBy: key})}
+                >
+                    {value}
+                </Menu.Item>
+            )
+        }),
+    )
+
 export const MovieSearchFilters: React.FC = () => {
-    const [queryParams, setQueryParams] = useMovieQueryParamStates()
+    const queryParamsState = useMovieQueryParamStates()
+    const [queryParams, setQueryParams] = queryParamsState
 
     const options = (
         <React.Fragment>
@@ -24,18 +47,7 @@ export const MovieSearchFilters: React.FC = () => {
                 </Stack>
             </Menu.Item>
 
-            {Object.entries(sortByOptions).map(([key, value]) => {
-                const color = queryParams.sortBy === key ? 'red' : 'black'
-                return (
-                    <Menu.Item
-                        key={key}
-                        c={color}
-                        onClick={() => setQueryParams({sortBy: key})}
-                    >
-                        {value}
-                    </Menu.Item>
-                )
-            })}
+            {renderOptions(queryParamsState)(sortByOptions)}
         </React.Fragment>
     )
 

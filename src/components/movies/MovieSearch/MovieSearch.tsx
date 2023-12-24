@@ -2,7 +2,7 @@
 
 import {Box, Button, Container, Loader, Stack, TextInput} from '@mantine/core'
 import dynamic from 'next/dynamic'
-import type {UseFormProps} from 'react-hook-form'
+import type {SubmitHandler, UseFormProps} from 'react-hook-form'
 import {useForm} from 'react-hook-form'
 
 import {MovieSearchContent} from '@/components/movies/MovieSearch/MovieSearchContent'
@@ -30,9 +30,10 @@ function useMovieSearchInputState() {
         defaultValues: {search: queryParams.search},
     }
     const form = useForm<MovieSearchFormValues>(defaultMovieSearchFormProps)
-    const onSubmit = form.handleSubmit(({search}) => {
+
+    const onSubmit: SubmitHandler<MovieSearchFormValues> = ({search}) => {
         setQueryParams({search, page: DEFAULT_MOVIES_PAGE_NUMBER})
-    })
+    }
 
     return {queryParams, form: {...form, onSubmit}}
 }
@@ -41,7 +42,11 @@ const MovieSearchInput = () => {
     const state = useMovieSearchInputState()
 
     return (
-        <Box component='form' w='100%' onSubmit={state.form.onSubmit}>
+        <Box
+            component='form'
+            w='100%'
+            onSubmit={state.form.handleSubmit(state.form.onSubmit)}
+        >
             <Stack style={{flexDirection: 'row'}}>
                 <TextInput
                     {...state.form.register('search')}

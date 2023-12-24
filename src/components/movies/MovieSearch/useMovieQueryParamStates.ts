@@ -36,3 +36,6 @@ export function useMovieQueryParamStates() {
 
     return [queryParams, setQueryParams] as const
 }
+export type UseMovieQueryParamStatesReturnType = ReturnType<
+    typeof useMovieQueryParamStates
+>
