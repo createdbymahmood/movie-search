@@ -7,7 +7,10 @@ import * as React from 'react'
 import {Providers} from '@/components/general/Providers'
 import {constructMetadata} from '@/utils/constructMetadata'
 
-const inter = Inter({subsets: ['latin']})
+const inter = Inter({
+    weight: '400',
+    subsets: ['latin'],
+})
 
 export const metadata = constructMetadata({
     title: 'Movie Search',
