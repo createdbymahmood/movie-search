@@ -7,7 +7,7 @@ import * as React from 'react'
 export const MovieSearchSkeleton: React.FC = () => {
     return (
         <Grid>
-            {range(10).map((index) => (
+            {range(8).map((index) => (
                 <Grid.Col key={index} span={{lg: 3, md: 4, sm: 6, xs: 12}}>
                     <AspectRatio maw={300} mx='auto' ratio={720 / 1080}>
                         <Skeleton animate={false} height={200} width='100%' />
