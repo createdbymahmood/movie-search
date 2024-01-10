@@ -1,9 +1,12 @@
+import {useQueryClient} from '@tanstack/react-query'
 import {
     BooleanParam,
     StringParam,
     useQueryParams,
     withDefault,
 } from 'use-query-params'
+
+import {scrollToTop} from '@/utils/scrollToTop'
 
 export const DEFAULT_MOVIES_PAGE_NUMBER = '1'
 export const sortByOptions = {
@@ -34,7 +37,12 @@ export function useMovieQueryParamStates() {
         updateType: 'pushIn',
     })
 
-    return [queryParams, setQueryParams] as const
+    const _setQueryParams = (...args: Parameters<typeof setQueryParams>) => {
+        setQueryParams(...args)
+        scrollToTop()
+    }
+
+    return [queryParams, _setQueryParams] as const
 }
 export type UseMovieQueryParamStatesReturnType = ReturnType<
     typeof useMovieQueryParamStates

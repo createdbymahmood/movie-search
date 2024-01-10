@@ -1,6 +1,5 @@
 import {toNumber} from 'lodash'
 import type {Metadata} from 'next'
-import * as React from 'react'
 
 import {Movie} from '@/components/movies/Movie/Movie'
 import {getMovieMovieId} from '@/lib/data-provider/TMDB/__generated'
@@ -32,8 +31,4 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
     }
 }
 
-const Page: React.FC = () => {
-    return <Movie />
-}
-
-export default Page
+export default Movie

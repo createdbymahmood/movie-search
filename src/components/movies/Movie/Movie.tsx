@@ -1,7 +1,7 @@
 'use client'
 
 import type {ContainerFactory, Styles} from '@mantine/core'
-import {Box, Container, Loader, useMantineTheme} from '@mantine/core'
+import {Box, Container, useMantineTheme} from '@mantine/core'
 import {toNumber} from 'lodash'
 import {useParams} from 'next/navigation'
 import * as React from 'react'
@@ -32,12 +32,6 @@ export const Movie: React.FC = () => {
     const containerStyles = createContainerStyles(theme, {}, undefined)
 
     const content = (() => {
-        if (state.movie.isLoading)
-            return (
-                <Container>
-                    <Loader size={20} />
-                </Container>
-            )
         return (
             <React.Fragment>
                 <Box

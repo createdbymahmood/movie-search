@@ -1,83 +1,59 @@
 'use client'
 
-import {Box, Button, Container, Loader, Stack, TextInput} from '@mantine/core'
-import dynamic from 'next/dynamic'
-import type {SubmitHandler, UseFormProps} from 'react-hook-form'
-import {useForm} from 'react-hook-form'
+import {Center, Grid, Pagination, Text} from '@mantine/core'
+import {isEmpty, isNil} from 'lodash'
+import * as React from 'react'
 
-import {MovieSearchContent} from '@/components/movies/MovieSearch/MovieSearchContent'
-import {MovieSearchFilters} from '@/components/movies/MovieSearch/MovieSearchFilters'
-import {
-    DEFAULT_MOVIES_PAGE_NUMBER,
-    useMovieQueryParamStates,
-} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
+import {MovieCard} from '@/components/movies/MovieSearch/MovieCard'
 
-const Navigation = dynamic(() => import('@/components/general/Navigation'), {
-    loading: () => <Loader size={36} />,
-    ssr: false,
-})
+import {useMovieSearchState} from './useMovieSearchState'
 
-interface MovieSearchFormValues {
-    search: string
-}
+export const MovieSearch: React.FC = () => {
+    const state = useMovieSearchState()
+    const {
+        searchByTitleQuery: {data},
+        searchQuery,
+    } = state
 
-function useMovieSearchInputState() {
-    const [queryParams, setQueryParams] = useMovieQueryParamStates()
-    const defaultMovieSearchFormProps: UseFormProps<
-        MovieSearchFormValues,
-        unknown
-    > = {
-        defaultValues: {search: queryParams.search},
-    }
-    const form = useForm<MovieSearchFormValues>(defaultMovieSearchFormProps)
+    const content = (() => {
+        if (isEmpty(searchQuery)) return null
+        if (!data?.results.length)
+            return (
+                <Text>
+                    No Movies found with search query of "{state.searchQuery}"
+                </Text>
+            )
 
-    const onSubmit: SubmitHandler<MovieSearchFormValues> = ({search}) => {
-        setQueryParams({search, page: DEFAULT_MOVIES_PAGE_NUMBER})
-    }
+        return (
+            <Grid>
+                {data.results.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
+                ))}
+            </Grid>
+        )
+    })()
 
-    return {queryParams, form: {...form, onSubmit}}
-}
+    const {totalPagesCount} = state.pagination
+    const hasPagination = !isNil(totalPagesCount) && totalPagesCount > 1
 
-const MovieSearchInput = () => {
-    const state = useMovieSearchInputState()
+    const pagination: React.ReactNode = (() => {
+        if (!hasPagination) return null
+        return (
+            <Pagination
+                defaultValue={state.pagination.page}
+                total={state.pagination.totalPagesCount}
+                value={state.pagination.page}
+                onChange={state.pagination.onPageChange}
+            />
+        )
+    })()
 
     return (
-        <Box
-            component='form'
-            w='100%'
-            onSubmit={state.form.handleSubmit(state.form.onSubmit)}
-        >
-            <Stack style={{flexDirection: 'row'}}>
-                <TextInput
-                    {...state.form.register('search')}
-                    defaultValue={state.queryParams.search}
-                    placeholder='eg: Interstellar...'
-                    style={{flex: 1}}
-                />
-                <MovieSearchFilters />
-                <Button type='submit'>Search</Button>
-            </Stack>
-        </Box>
-    )
-}
-
-export const MovieSearch = () => {
-    return (
-        <Container pb={50}>
-            <Stack
-                display='flex'
-                h='100vh'
-                py={50}
-                style={{flexDirection: 'column'}}
-            >
-                <Navigation />
-
-                <Stack style={{flexDirection: 'row'}}>
-                    <MovieSearchInput />
-                </Stack>
-
-                <MovieSearchContent />
-            </Stack>
-        </Container>
+        <React.Fragment>
+            {content}
+            <Center mt='auto' pb={20}>
+                {pagination}
+            </Center>
+        </React.Fragment>
     )
 }

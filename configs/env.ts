@@ -11,6 +11,7 @@ const envSchema = Y.object({
     TMDBAPIKey: Y.string().required(),
 
     TMDB_IMAGES_BASEPATH: Y.string().required(),
+    NODE_ENV: Y.string().oneOf(['production', 'development', 'test'] as const),
 })
 
 export const env = envSchema.validateSync({
