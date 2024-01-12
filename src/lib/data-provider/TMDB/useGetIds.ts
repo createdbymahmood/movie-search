@@ -64,3 +64,11 @@ export const useGetMovieMovieIds = <
     const queries = getGetMovieMovieIdQueryOptions(movieIds, options)
     return useQueries({queries})
 }
+
+export type MovieQueryOptions = Partial<
+    UseQueryOptions<
+        Promise<MovieSearchResult>,
+        ErrorType<GetMovieMovieId401 | GetMovieMovieId404>,
+        MovieSearchResult
+    >
+>

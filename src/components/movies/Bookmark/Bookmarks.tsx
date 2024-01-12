@@ -15,6 +15,7 @@ import type {
     GetMovieMovieId404,
 } from '@/lib/data-provider/TMDB/__generated'
 import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movies'
+import type {MovieQueryOptions} from '@/lib/data-provider/TMDB/useGetIds'
 import {useGetMovieMovieIds} from '@/lib/data-provider/TMDB/useGetIds'
 import {toClientErrorMessage} from '@/utils/error'
 
@@ -35,7 +36,10 @@ function useBookmarksState() {
     const theme = useMantineTheme()
     const [bookmarks] = useBookmarksInLocalStorage()
 
-    const moviesQuery = useGetMovieMovieIds(bookmarks)
+    const moviesQuery = useGetMovieMovieIds(bookmarks, {
+        query: {suspense: false} as unknown as MovieQueryOptions,
+    })
+
     const moviesQueriesData = map(
         moviesQuery,
         (query) => query.data ?? ([] as unknown as MovieSearchResult),
