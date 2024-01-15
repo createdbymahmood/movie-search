@@ -8,10 +8,7 @@
         "start": "next start",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
         "orval": "orval --config scripts/orval.config.ts",
-        "release": "standard-version",
-        "release:major": "yarn release --release-as major",
-        "release:minor": "yarn release --release-as minor",
-        "release:patch": "yarn release --release-as patch"
+        "release": "release-it"
     },
     "dependencies": {
         "@hookform/resolvers": "3.3.2",
@@ -51,13 +48,8 @@
         "postcss-preset-mantine": "1.11.1",
         "postcss-simple-vars": "7.0.1",
         "prettier": "3.1.0",
+        "release-it": "17.0.1",
         "rimraf": "5.0.5",
-        "standard-version": "9.5.0",
         "typescript": "5.0.2"
-    },
-    "standard-version": {
-        "skip": {
-            "changelog": true
-        }
     }
 }
