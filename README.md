@@ -1,13 +1,3 @@
-To run the project locally please replace .env content with the provided values as below
-
-```bash
-NEXTAUTH_SECRET="123456789@QWERTYUIO#"
-NEXT_PUBLIC_JsonPlaceholder_API_URL="https://jsonplaceholder.typicode.com"
-NEXT_PUBLIC_TMDB_API_URL="https://api.themoviedb.org/3/"
-NEXT_PUBLIC_TMDB_API_KEY="5736ba1a33ee5dde21b50d0814f69876"
-NEXT_PUBLIC_TMDB_IMAGES_BASEPATH="https://image.tmdb.org/t/p/original"
-```
-
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
