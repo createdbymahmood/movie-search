@@ -38,4 +38,22 @@ export default defineConfig({
             target: '../swagger/TMDB.yaml',
         },
     },
+    Petstore: {
+        output: {
+            ...defaultOutputOptions,
+            target: '../src/lib/data-provider/Petstore/__generated.ts',
+            override: {
+                mutator: {
+                    path: '../src/lib/axios.ts',
+                    name: 'PetstoreInstance',
+                },
+            },
+        },
+        input: {
+            target: 'https://petstore3.swagger.io/api/v3/openapi.json',
+            override: {
+                transformer: './transformers/add-version.js',
+            },
+        },
+    },
 })

@@ -36,4 +36,6 @@ export const TMDBInstance = createCustomInstance(env.TMDBAPIURL, {
     params: {api_key: env.TMDBAPIKey},
 })
 
+export const PetstoreInstance = createCustomInstance('/', {})
+
 export interface ErrorType<Error> extends AxiosError<Error> {}
