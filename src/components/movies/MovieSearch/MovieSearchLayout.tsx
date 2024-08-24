@@ -12,13 +12,10 @@ import {
   useMovieQueryParamStates,
 } from '@/components/movies/MovieSearch/useMovieQueryParamStates'
 
-const Navigation = dynamic(
-  () => import('@/components/general-temp/Navigation'),
-  {
-    loading: () => <Loader size={36} />,
-    ssr: false,
-  },
-)
+const Navigation = dynamic(() => import('@/components/general/navigation'), {
+  loading: () => <Loader size={36} />,
+  ssr: false,
+})
 
 interface MovieSearchFormValues {
   search: string
