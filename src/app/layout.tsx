@@ -4,7 +4,7 @@ import {ColorSchemeScript} from '@mantine/core'
 import {Inter} from 'next/font/google'
 import * as React from 'react'
 
-import {Providers} from '@/components/general/Providers'
+import {Providers} from '@/components/general-temp/Providers'
 import {constructMetadata} from '@/utils/constructMetadata'
 
 const inter = Inter({
