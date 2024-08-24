@@ -1,4 +1,3 @@
-import {useQueryClient} from '@tanstack/react-query'
 import {
   BooleanParam,
   StringParam,
@@ -32,7 +31,7 @@ const queryParamsConfig = {
   includeAdult: withDefault(BooleanParam, false),
 }
 
-export function useMovieQueryParamStates() {
+export function useMovieQueryParamsState() {
   const [queryParams, setQueryParams] = useQueryParams(queryParamsConfig, {
     updateType: 'pushIn',
   })
@@ -45,5 +44,5 @@ export function useMovieQueryParamStates() {
   return [queryParams, _setQueryParams] as const
 }
 export type UseMovieQueryParamStatesReturnType = ReturnType<
-  typeof useMovieQueryParamStates
+  typeof useMovieQueryParamsState
 >

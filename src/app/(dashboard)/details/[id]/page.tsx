@@ -1,7 +1,7 @@
 import {toNumber} from 'lodash'
 import type {Metadata} from 'next'
 
-import {Movie} from '@/components/movies/Movie/Movie'
+import {Movie} from '@/components/movies/movie'
 import {getMovieMovieId} from '@/lib/data-provider/TMDB/__generated'
 import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movies'
 import {constructMetadata} from '@/utils/constructMetadata'

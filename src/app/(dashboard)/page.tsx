@@ -1,5 +1,5 @@
-import {MovieSearchLayout} from '@/components/movies/MovieSearch'
-import {MovieSearch} from '@/components/movies/MovieSearch/MovieSearch'
+import {MovieSearchLayout} from '@/components/movies/movie-search'
+import {MovieSearch} from '@/components/movies/movie-search/movie-search'
 
 export default () => {
   return (

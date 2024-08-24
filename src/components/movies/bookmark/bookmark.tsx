@@ -2,10 +2,10 @@ import {Button} from '@mantine/core'
 import * as React from 'react'
 
 import {withAuth} from '@/components/authentication/HOC/with-auth'
-import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
+import {useBookmarksStorage} from '@/components/movies/bookmark/use-bookmarks-storage'
 
 function useBookmarkState({id}: BookmarkProps) {
-  const [bookmarks, setBookmarks] = useBookmarksInLocalStorage()
+  const [bookmarks, setBookmarks] = useBookmarksStorage()
   const movieId = id
 
   const toggleBookmark = () => {

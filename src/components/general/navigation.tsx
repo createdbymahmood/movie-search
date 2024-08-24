@@ -4,11 +4,11 @@ import {useRouter} from 'next/navigation'
 import {signOut} from 'next-auth/react'
 import * as React from 'react'
 
-import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
+import {useBookmarksStorage} from '@/components/movies/bookmark/use-bookmarks-storage'
 
 function useNavigationState() {
   const router = useRouter()
-  const [bookmarks] = useBookmarksInLocalStorage()
+  const [bookmarks] = useBookmarksStorage()
 
   const handleSignOut = () => {
     try {

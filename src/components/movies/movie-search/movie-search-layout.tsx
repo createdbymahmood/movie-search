@@ -6,11 +6,11 @@ import type {ReactNode} from 'react'
 import type {SubmitHandler, UseFormProps} from 'react-hook-form'
 import {useForm} from 'react-hook-form'
 
-import {MovieSearchFilters} from '@/components/movies/MovieSearch/MovieSearchFilters'
+import {MovieSearchFilters} from '@/components/movies/movie-search/movie-search-filters'
 import {
   DEFAULT_MOVIES_PAGE_NUMBER,
-  useMovieQueryParamStates,
-} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
+  useMovieQueryParamsState,
+} from '@/components/movies/movie-search/use-movie-query-params-state'
 
 const Navigation = dynamic(() => import('@/components/general/navigation'), {
   loading: () => <Loader size={36} />,
@@ -22,7 +22,7 @@ interface MovieSearchFormValues {
 }
 
 function useMovieSearchInputState() {
-  const [queryParams, setQueryParams] = useMovieQueryParamStates()
+  const [queryParams, setQueryParams] = useMovieQueryParamsState()
   const defaultMovieSearchFormProps: UseFormProps<
     MovieSearchFormValues,
     unknown

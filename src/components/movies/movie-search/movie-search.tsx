@@ -4,9 +4,9 @@ import {Center, Grid, Pagination, Text} from '@mantine/core'
 import {isEmpty, isNil} from 'lodash'
 import * as React from 'react'
 
-import {MovieCard} from '@/components/movies/MovieSearch/MovieCard'
+import {MovieCard} from '@/components/movies/movie-search/movie-card'
 
-import {useMovieSearchState} from './useMovieSearchState'
+import {useMovieSearchState} from './use-movie-search-state'
 
 export const MovieSearch: React.FC = () => {
   const state = useMovieSearchState()

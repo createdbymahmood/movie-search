@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic'
 import * as React from 'react'
 
-import {MoviesGridLoadingFallback} from '@/components/movies/Bookmark/Bookmarks'
+import {MoviesGridLoadingFallback} from '@/components/movies/bookmark/bookmarks'
 
 const Bookmarks = dynamic(
-  () => import('@/components/movies/Bookmark/Bookmarks'),
+  () => import('@/components/movies/bookmark/bookmarks'),
   {
     loading: MoviesGridLoadingFallback,
     ssr: false,

@@ -6,9 +6,9 @@ import {map, some} from 'lodash'
 import {join, pipe, reduce} from 'lodash/fp'
 import * as React from 'react'
 
-import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
-import {MovieCard} from '@/components/movies/MovieSearch/MovieCard'
-import {MovieSearchSkeleton} from '@/components/movies/MovieSearch/MovieSearchSkeleton'
+import {useBookmarksStorage} from '@/components/movies/bookmark/use-bookmarks-storage'
+import {MovieCard} from '@/components/movies/movie-search/movie-card'
+import {MovieSearchSkeleton} from '@/components/movies/movie-search/movie-search-skeleton'
 import type {ErrorType} from '@/lib/axios'
 import type {
   GetMovieMovieId401,
@@ -33,7 +33,7 @@ const createNormalizedErrorMessages = pipe(
 
 function useBookmarksState() {
   const theme = useMantineTheme()
-  const [bookmarks] = useBookmarksInLocalStorage()
+  const [bookmarks] = useBookmarksStorage()
 
   const moviesQuery = useGetMovieMovieIds(bookmarks)
   const moviesQueriesData = map(

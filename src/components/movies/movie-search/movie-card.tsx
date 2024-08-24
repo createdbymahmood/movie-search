@@ -22,7 +22,7 @@ export interface MovieCardProps {
   movie: MovieSearchResult
 }
 const Bookmark = dynamic(
-  () => import('@/components/movies/Bookmark/Bookmark'),
+  () => import('@/components/movies/bookmark/bookmark'),
   {
     loading: () => <Skeleton h={36} />,
     ssr: false,

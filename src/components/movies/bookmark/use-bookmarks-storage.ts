@@ -3,7 +3,7 @@ import useLocalStorage from 'use-local-storage'
 
 import {useSessionEmail} from '@/hooks/useSessionEmail'
 
-export const useBookmarksInLocalStorage = () => {
+export const useBookmarksStorage = () => {
   const email = useSessionEmail()
   const key = `bookmarks-key-${email}`
 

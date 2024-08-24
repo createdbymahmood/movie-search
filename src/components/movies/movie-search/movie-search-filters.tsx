@@ -3,11 +3,11 @@ import {IconArrowsSort} from '@tabler/icons-react'
 import {entries, map, pipe} from 'lodash/fp'
 import * as React from 'react'
 
-import type {UseMovieQueryParamStatesReturnType} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
+import type {UseMovieQueryParamStatesReturnType} from '@/components/movies/movie-search/use-movie-query-params-state'
 import {
   sortByOptions,
-  useMovieQueryParamStates,
-} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
+  useMovieQueryParamsState,
+} from '@/components/movies/movie-search/use-movie-query-params-state'
 
 const renderOptions = ([
   queryParams,
@@ -30,7 +30,7 @@ const renderOptions = ([
   )
 
 export const MovieSearchFilters: React.FC = () => {
-  const queryParamsState = useMovieQueryParamStates()
+  const queryParamsState = useMovieQueryParamsState()
   const [queryParams, setQueryParams] = queryParamsState
 
   const options = (

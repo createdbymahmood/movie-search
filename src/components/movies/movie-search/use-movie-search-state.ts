@@ -1,13 +1,13 @@
 import {useCallbackRef} from '@mantine/hooks'
 import {isEmpty, toNumber, toString} from 'lodash'
 
-import {useMovieQueryParamStates} from '@/components/movies/MovieSearch/useMovieQueryParamStates'
+import {useMovieQueryParamsState} from '@/components/movies/movie-search/use-movie-query-params-state'
 import type {GetSearchMovieParams} from '@/lib/data-provider/TMDB/__generated'
 import {useGetSearchMovie} from '@/lib/data-provider/TMDB/__generated'
 import type {MoviesSearchResults} from '@/lib/data-provider/TMDB/types/search/movies'
 
 export function useMovieSearchState() {
-  const [queryParams, setQueryParams] = useMovieQueryParamStates()
+  const [queryParams, setQueryParams] = useMovieQueryParamsState()
 
   const page = toNumber(queryParams.page)
   const enabled = !isEmpty(queryParams.search)
