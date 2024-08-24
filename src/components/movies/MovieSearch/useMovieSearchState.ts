@@ -7,38 +7,38 @@ import {useGetSearchMovie} from '@/lib/data-provider/TMDB/__generated'
 import type {MoviesSearchResults} from '@/lib/data-provider/TMDB/types/search/movies'
 
 export function useMovieSearchState() {
-    const [queryParams, setQueryParams] = useMovieQueryParamStates()
+  const [queryParams, setQueryParams] = useMovieQueryParamStates()
 
-    const page = toNumber(queryParams.page)
-    const enabled = !isEmpty(queryParams.search)
+  const page = toNumber(queryParams.page)
+  const enabled = !isEmpty(queryParams.search)
 
-    const searchByTitleQueryParams = {
-        page,
-        query: queryParams.search,
-        sort_by: queryParams.sortBy,
-        include_adult: queryParams.includeAdult,
-    }
+  const searchByTitleQueryParams = {
+    page,
+    query: queryParams.search,
+    sort_by: queryParams.sortBy,
+    include_adult: queryParams.includeAdult,
+  }
 
-    const searchByTitleQuery = useGetSearchMovie<MoviesSearchResults>(
-        searchByTitleQueryParams as unknown as GetSearchMovieParams,
-        {query: {enabled}},
-    )
+  const searchByTitleQuery = useGetSearchMovie<MoviesSearchResults>(
+    searchByTitleQueryParams as unknown as GetSearchMovieParams,
+    {query: {enabled}},
+  )
 
-    const onPageChange = useCallbackRef((value: number) => {
-        setQueryParams({page: toString(value)})
-    })
+  const onPageChange = useCallbackRef((value: number) => {
+    setQueryParams({page: toString(value)})
+  })
 
-    const data = searchByTitleQuery.data
-    const totalPagesCount = data?.total_pages as unknown as number
+  const data = searchByTitleQuery.data
+  const totalPagesCount = data?.total_pages as unknown as number
 
-    const pagination = {totalPagesCount, onPageChange, page}
+  const pagination = {totalPagesCount, onPageChange, page}
 
-    const error = searchByTitleQuery.error
+  const error = searchByTitleQuery.error
 
-    return {
-        searchByTitleQuery,
-        pagination,
-        error,
-        searchQuery: queryParams.search,
-    }
+  return {
+    searchByTitleQuery,
+    pagination,
+    error,
+    searchQuery: queryParams.search,
+  }
 }

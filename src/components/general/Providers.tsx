@@ -12,28 +12,28 @@ import {theme} from '@/lib/mantine/theme'
 import {queryClientConfig} from '@/lib/react-query'
 
 function useProvidersState() {
-    const client = React.useMemo(() => new QueryClient(queryClientConfig), [])
-    return {client}
+  const client = React.useMemo(() => new QueryClient(queryClientConfig), [])
+  return {client}
 }
 
 export interface ProvidersProps {
-    children: React.ReactNode
+  children: React.ReactNode
 }
 
 export const Providers: React.FC<ProvidersProps> = ({children}) => {
-    const state = useProvidersState()
+  const state = useProvidersState()
 
-    return (
-        <QueryClientProvider client={state.client}>
-            <ReactQueryStreamedHydration>
-                <MantineProvider theme={theme}>
-                    <SessionProvider>
-                        <QueryParamProvider adapter={NextAdapterApp}>
-                            {children}
-                        </QueryParamProvider>
-                    </SessionProvider>
-                </MantineProvider>
-            </ReactQueryStreamedHydration>
-        </QueryClientProvider>
-    )
+  return (
+    <QueryClientProvider client={state.client}>
+      <ReactQueryStreamedHydration>
+        <MantineProvider theme={theme}>
+          <SessionProvider>
+            <QueryParamProvider adapter={NextAdapterApp}>
+              {children}
+            </QueryParamProvider>
+          </SessionProvider>
+        </MantineProvider>
+      </ReactQueryStreamedHydration>
+    </QueryClientProvider>
+  )
 }

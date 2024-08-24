@@ -7,28 +7,26 @@ import type {MovieSearchResult} from '@/lib/data-provider/TMDB/types/search/movi
 import {constructMetadata} from '@/utils/constructMetadata'
 
 interface Props {
-    params: {id: string}
-    searchParams: {[key: string]: string[] | string | undefined}
+  params: {id: string}
+  searchParams: {[key: string]: string[] | string | undefined}
 }
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
-    const id = toNumber(params.id)
+  const id = toNumber(params.id)
 
-    try {
-        const movie = (await getMovieMovieId(
-            id,
-        )) as unknown as MovieSearchResult
+  try {
+    const movie = (await getMovieMovieId(id)) as unknown as MovieSearchResult
 
-        return constructMetadata({
-            title: movie.title,
-            description: movie.overview,
-        })
-    } catch (error) {
-        return constructMetadata({
-            title: 'Movie',
-            description: 'A place to find your favorite movie',
-        })
-    }
+    return constructMetadata({
+      title: movie.title,
+      description: movie.overview,
+    })
+  } catch (error) {
+    return constructMetadata({
+      title: 'Movie',
+      description: 'A place to find your favorite movie',
+    })
+  }
 }
 
 export default Movie

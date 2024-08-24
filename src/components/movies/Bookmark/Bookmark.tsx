@@ -5,46 +5,44 @@ import {withAuth} from '@/components/authentication/HOC/withAuth'
 import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
 
 function useBookmarkState({id}: BookmarkProps) {
-    const [bookmarks, setBookmarks] = useBookmarksInLocalStorage()
-    const movieId = id
+  const [bookmarks, setBookmarks] = useBookmarksInLocalStorage()
+  const movieId = id
 
-    const toggleBookmark = () => {
-        const updater = (prevBookmarks: number[]) => {
-            if (prevBookmarks.includes(movieId))
-                return prevBookmarks.filter(
-                    (bookmarkId) => bookmarkId !== movieId,
-                )
-            return [...prevBookmarks, movieId]
-        }
-
-        setBookmarks(updater(bookmarks))
+  const toggleBookmark = () => {
+    const updater = (prevBookmarks: number[]) => {
+      if (prevBookmarks.includes(movieId))
+        return prevBookmarks.filter((bookmarkId) => bookmarkId !== movieId)
+      return [...prevBookmarks, movieId]
     }
 
-    const isBookmarked = bookmarks.includes(movieId)
+    setBookmarks(updater(bookmarks))
+  }
 
-    return {
-        bookmarks,
-        setBookmarks,
-        toggleBookmark,
-        isBookmarked,
-    }
+  const isBookmarked = bookmarks.includes(movieId)
+
+  return {
+    bookmarks,
+    setBookmarks,
+    toggleBookmark,
+    isBookmarked,
+  }
 }
 
 export interface BookmarkProps {
-    id: number
+  id: number
 }
 
 const Bookmark: React.FC<BookmarkProps> = ({id}) => {
-    const state = useBookmarkState({id})
+  const state = useBookmarkState({id})
 
-    return (
-        <Button
-            color={state.isBookmarked ? 'red' : 'blue'}
-            onClick={state.toggleBookmark}
-        >
-            {state.isBookmarked ? 'Delete from bookmarks' : 'Bookmark'}
-        </Button>
-    )
+  return (
+    <Button
+      color={state.isBookmarked ? 'red' : 'blue'}
+      onClick={state.toggleBookmark}
+    >
+      {state.isBookmarked ? 'Delete from bookmarks' : 'Bookmark'}
+    </Button>
+  )
 }
 
 export default withAuth(Bookmark)

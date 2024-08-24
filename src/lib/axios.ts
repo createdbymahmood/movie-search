@@ -7,33 +7,33 @@ import {env} from '~~/configs/env'
 export const createAxiosInstance = (baseURL: string) => Axios.create({baseURL})
 
 export const createCustomInstance =
-    (baseURL: string, extraRequestConfig: AxiosRequestConfig = {}) =>
-    <T>(config: AxiosRequestConfig): Promise<T> => {
-        const source = Axios.CancelToken.source()
+  (baseURL: string, extraRequestConfig: AxiosRequestConfig = {}) =>
+  <T>(config: AxiosRequestConfig): Promise<T> => {
+    const source = Axios.CancelToken.source()
 
-        const requstConfig: AxiosRequestConfig = {
-            ...merge(config, extraRequestConfig),
-            cancelToken: source.token,
-        }
-
-        const promise = createAxiosInstance(baseURL)(requstConfig).then(
-            ({data}) => data,
-        )
-
-        // @ts-ignore unknown
-        promise.cancel = () => {
-            source.cancel('Query was cancelled by React Query')
-        }
-
-        return promise
+    const requstConfig: AxiosRequestConfig = {
+      ...merge(config, extraRequestConfig),
+      cancelToken: source.token,
     }
 
+    const promise = createAxiosInstance(baseURL)(requstConfig).then(
+      ({data}) => data,
+    )
+
+    // @ts-ignore unknown
+    promise.cancel = () => {
+      source.cancel('Query was cancelled by React Query')
+    }
+
+    return promise
+  }
+
 export const JsonPlaceholderInstance = createCustomInstance(
-    env.JsonPlaceholderAPIURL,
+  env.JsonPlaceholderAPIURL,
 )
 
 export const TMDBInstance = createCustomInstance(env.TMDBAPIURL, {
-    params: {api_key: env.TMDBAPIKey},
+  params: {api_key: env.TMDBAPIKey},
 })
 
 export const PetstoreInstance = createCustomInstance('/', {})
