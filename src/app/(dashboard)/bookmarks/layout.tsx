@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import {withAuth} from '@/components/authentication/HOC/withAuth'
+import {withAuth} from '@/components/authentication/HOC/with-auth'
 
 export interface LayoutProps {
   children: React.ReactNode

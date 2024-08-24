@@ -4,8 +4,8 @@ import * as React from 'react'
 import type {SubmitHandler} from 'react-hook-form'
 import {useFormContext} from 'react-hook-form'
 
-import type * as LoginFormTypes from './LoginForm.types'
-import classes from './LoginFormView.module.css'
+import type * as LoginFormTypes from './login-form.types'
+import classes from './login-form-view.module.css'
 
 function useLoginFormViewState() {
   const form = useFormContext<LoginFormTypes.FormValues>()

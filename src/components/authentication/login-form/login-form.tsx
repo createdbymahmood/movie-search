@@ -7,7 +7,7 @@ import * as React from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
 import {StringParam, useQueryParam, withDefault} from 'use-query-params'
 
-import {loginFormValidationSchema} from '@/components/authentication/LoginForm/LoginFormValidationSchema'
+import {loginFormValidationSchema} from '@/components/authentication/login-form/login-form-validation-schema'
 import type {NextAuthError} from '@/utils/error'
 import {
   toClientErrorMessage,
@@ -15,8 +15,8 @@ import {
 } from '@/utils/error'
 import MOCKED_USER from '~~/fixtures/user.json'
 
-import type * as LoginFormTypes from './LoginForm.types'
-import {LoginFormView} from './LoginFormView'
+import type * as LoginFormTypes from './login-form.types'
+import {LoginFormView} from './login-form-view'
 
 function useLoginFormState() {
   const form = useForm<LoginFormTypes.FormValues>({

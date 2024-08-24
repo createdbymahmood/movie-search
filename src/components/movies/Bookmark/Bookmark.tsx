@@ -1,7 +1,7 @@
 import {Button} from '@mantine/core'
 import * as React from 'react'
 
-import {withAuth} from '@/components/authentication/HOC/withAuth'
+import {withAuth} from '@/components/authentication/HOC/with-auth'
 import {useBookmarksInLocalStorage} from '@/components/movies/Bookmark/useBookmarksInLocalStorage'
 
 function useBookmarkState({id}: BookmarkProps) {

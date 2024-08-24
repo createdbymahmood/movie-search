@@ -1,4 +1,4 @@
-import {LoginForm} from '@/components/authentication/LoginForm'
+import {LoginForm} from '@/components/authentication/login-form'
 import {constructMetadata} from '@/utils/constructMetadata'
 
 export const metadata = constructMetadata({
